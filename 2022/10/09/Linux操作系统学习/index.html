@@ -16,22 +16,25 @@
   <meta name="author" content="10-Kirito">
   <meta name="keywords" content="">
   
-    <meta name="description" content="鸟哥私房菜零. 计算机概述1. 操作系统核心操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。 操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输">
+    <meta name="description" content="Linux操作系统学习一.基本命令1.$提示符的前面如果是波浪号，表示当前工作目录位于当前用户home的目录下。 2.利用apt来安装软件包。 12$ sudo apt install gcc&#x2F;&#x2F;安装C语言编译器$ sudo apt install g++&#x2F;&#x2F;安装C++编译器  3.利用gcc和g++来编译源文件： gcc: 1234gcc [选项] [参数][选项]中有很多的选择:比如说-o，指">
 <meta property="og:type" content="article">
-<meta property="og:title" content="鸟哥私房菜">
-<meta property="og:url" content="http://example.com/2022/10/09/%E9%B8%9F%E5%93%A5%E7%A7%81%E6%88%BF%E8%8F%9C/index.html">
+<meta property="og:title" content="Linux操作系统学习">
+<meta property="og:url" content="http://example.com/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/index.html">
 <meta property="og:site_name" content="10-Kirito">
-<meta property="og:description" content="鸟哥私房菜零. 计算机概述1. 操作系统核心操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。 操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输">
+<meta property="og:description" content="Linux操作系统学习一.基本命令1.$提示符的前面如果是波浪号，表示当前工作目录位于当前用户home的目录下。 2.利用apt来安装软件包。 12$ sudo apt install gcc&#x2F;&#x2F;安装C语言编译器$ sudo apt install g++&#x2F;&#x2F;安装C++编译器  3.利用gcc和g++来编译源文件： gcc: 1234gcc [选项] [参数][选项]中有很多的选择:比如说-o，指">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-09T14:31:37.000Z">
-<meta property="article:modified_time" content="2022-10-09T14:32:24.743Z">
+<meta property="og:image" content="http://example.com/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/1.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/2.png">
+<meta property="article:published_time" content="2022-10-09T14:34:04.000Z">
+<meta property="article:modified_time" content="2022-10-09T15:03:32.600Z">
 <meta property="article:author" content="10-Kirito">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/1.png">
   
   
   
-  <title>鸟哥私房菜 - 10-Kirito</title>
+  <title>Linux操作系统学习 - 10-Kirito</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="鸟哥私房菜"></span>
+            <span id="subtitle" data-typed-text="Linux操作系统学习"></span>
           
         </div>
 
@@ -207,7 +210,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 22:31" pubdate>
+        <time datetime="2022-10-09 22:34" pubdate>
           2022年10月9日 晚上
         </time>
       </span>
@@ -219,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          1.2k 字
         
       </span>
     
@@ -230,7 +233,7 @@
         
         
         
-          13 分钟
+          11 分钟
         
       </span>
     
@@ -268,49 +271,60 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">鸟哥私房菜</h1>
+            <h1 style="display: none">Linux操作系统学习</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="鸟哥私房菜"><a href="#鸟哥私房菜" class="headerlink" title="鸟哥私房菜"></a>鸟哥私房菜</h1><h1 id="零-计算机概述"><a href="#零-计算机概述" class="headerlink" title="零. 计算机概述"></a>零. 计算机概述</h1><h2 id="1-操作系统核心"><a href="#1-操作系统核心" class="headerlink" title="1. 操作系统核心"></a>1. 操作系统核心</h2><p>操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。</p>
-<p>操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输数据等等。实现这些功能的就是操作系统的核心（Kernel），也就是我们经常所说的Linux内核。</p>
-<h2 id="2-操作系统的核心功能"><a href="#2-操作系统的核心功能" class="headerlink" title="2. 操作系统的核心功能"></a>2. 操作系统的核心功能</h2><ul>
-<li>系统调用接口</li>
-<li>程序管理</li>
-</ul>
-<p><em><strong>当我们有很多任务要执行的时候，核心所要做的事情就是控制这些任务，让CPU的资源有效的分配。</strong></em></p>
-<ul>
-<li>内存管理</li>
-</ul>
-<p>控制整个系统的内存管理，系统所有的程序码与数据都必须事先存储在内存中去。核心通常会提供虚拟内存的功能，当内存不足的时候可以提供<em><strong>内存交换</strong></em>的功能。</p>
-<ul>
-<li>文件系统管理</li>
-</ul>
-<p>计算机中有着大量的文件，如果核心不懂得怎么去管理文件，那么计算机不就全乱套了。<em><strong>更何况Linux中，一切皆文件！</strong></em>我们常见的文件管理系统，在Windows中我们使用盘符的概念、在Linux中我们使用文件树的概念。</p>
-<p>如果核心不认识某一个文件系统的话，那么就将无法使用该文件格式的文件。</p>
-<ul>
-<li>设备的驱动</li>
-</ul>
-<p>在计算机中，有很多的硬件，但也就只是有很多，还得我们去一个一个去调用驱动管理硬件，目前都有所谓的“可载入模块”功能，可以将驱动程序编辑成模块，就不需要重新的编译核心。</p>
-<p>我们经常使用的硬盘、显卡、主板等等，我们的操作系统是不认识的，我们的操作系统要想驱动这些硬件，会提供一个开发接口给硬件开发商，让他们根据接口设计可以驱动硬件的“驱动程序”，这样我们安装驱动之后，就可以使得操作系统驱动这些硬件了。</p>
-<h1 id="一-主机规划与磁盘分区"><a href="#一-主机规划与磁盘分区" class="headerlink" title="一. 主机规划与磁盘分区"></a>一. 主机规划与磁盘分区</h1><h2 id="1-开始流程中的BIOS与UEFI开机检测程序"><a href="#1-开始流程中的BIOS与UEFI开机检测程序" class="headerlink" title="1.开始流程中的BIOS与UEFI开机检测程序"></a>1.开始流程中的BIOS与UEFI开机检测程序</h2><p>通过前面的知识，我们可以知道我们操作系统会控制所有的硬件并且提供核心功能，因此我们的计算机可以认识硬盘内的文件系统，并进而去读取文件。</p>
-<p><em><strong>但是又有一个新的问题，我们的操作系统也是软件啊，我们的计算机又是如何认识这个操作系统的呢？</strong></em></p>
-<p>这就牵扯到我们的开机程序了！当前主要有BIOS和UEFI两种！	</p>
-<h3 id="1-1-BIOS搭配MBR-x2F-GPT的开机流程"><a href="#1-1-BIOS搭配MBR-x2F-GPT的开机流程" class="headerlink" title="1.1 BIOS搭配MBR&#x2F;GPT的开机流程"></a>1.1 BIOS搭配MBR&#x2F;GPT的开机流程</h3><blockquote>
-<p>在计算机概论里面我们有谈到那个可爱的BIOS与CMOS两个东西， CMOS是记录各项硬件参数且嵌入在主板上面的储存器，BIOS则是一个写入到主板上的一个固件（<em><strong>再次说明， 固件就是写入到硬件上的 一个软件程序</strong></em>）。</p>
-<p>这个<em><strong>BIOS就是在开机的时候，计算机系统会主动执行的第一个程序</strong></em>了！ </p>
-<p>接下来BIOS会去分析计算机里面有哪些储存设备，我们以硬盘为例，BIOS会依据使用者的设置去取得能够开机的硬盘， 并且到该硬盘里面去读取第一个扇区的MBR位置。</p>
-<p>MBR这个仅有446Bytes的硬盘容量里面会放置<em><strong>最基本的开机管理程序</strong></em>， 此时BIOS就功成圆满。</p>
-<p>而接下来就是MBR内的开机管理程序的工作了。 这个<em><strong>开机管理程序的目的是在载入（load）核心文件</strong></em>， 由于开机管理程序是操作系统在安装的时候所提供的，所以他会认识硬盘内的文件系统格式，因此就能够读取核心文件。</p>
-<p>然后接下来就是<em><strong>核心文件的 工作</strong></em>，开机管理程序与 BIOS 也功成圆满，将之后的工作就交给大家所知道的操作系统啦！ 简单的说，整个开机流程到操作系统之前的动作应该是这样的：</p>
-<ol>
-<li>BIOS：开机主动执行的固件，会认识第一个可开机的设备；</li>
-<li>MBR：第一个可开机设备的第一个扇区内的主要开机记录区块，内含开机管理程序；</li>
-<li>开机管理程序（boot loader）：一支可读取核心文件来执行的软件；</li>
-<li>核心文件：开始操作系统的功能…</li>
+                <h1 id="Linux操作系统学习"><a href="#Linux操作系统学习" class="headerlink" title="Linux操作系统学习"></a>Linux操作系统学习</h1><h2 id="一-基本命令"><a href="#一-基本命令" class="headerlink" title="一.基本命令"></a>一.基本命令</h2><p>1.$提示符的前面如果是波浪号，表示当前工作目录位于当前用户home的目录下。</p>
+<p>2.利用apt来安装软件包。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c++">$ sudo apt install gcc<span class="hljs-comment">//安装C语言编译器</span><br>$ sudo apt install g++<span class="hljs-comment">//安装C++编译器</span><br></code></pre></td></tr></table></figure>
+
+<p>3.利用gcc和g++来编译源文件：</p>
+<p><strong>gcc:</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">gcc [选项] [参数]<br>[选项]中有很多的选择:比如说-o，指定输出的文件名字<br>例子：<br>$ gcc -o Hello.out Hello.c<br></code></pre></td></tr></table></figure>
+
+<p><strong>g++:</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs D">$ g++ [选项] [参数]<br></code></pre></td></tr></table></figure>
+
+<p><strong>1)预处理：生成.i文件</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">$ g++ -E test.cpp -o test.i<br></code></pre></td></tr></table></figure>
+
+<p><strong>2)编译：生成.s文件，即汇编文件</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">$ g++ -S test.i -o test.s<br></code></pre></td></tr></table></figure>
+
+<p><strong>3)汇编：将汇编文件生成机器语言的二进制目标文件，即.o文件</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">$ g++ -c test.s -o test.o<br></code></pre></td></tr></table></figure>
+
+<p><strong>4)链接：生成bin文件，即可执行文件</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">$ g++ test.o -o test<br></code></pre></td></tr></table></figure>
+
+<p>(备用链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_41326319/article/details/123937587">https://blog.csdn.net/weixin_41326319/article/details/123937587</a>)</p>
+<p><strong>5)利用objdump可以将C++源文件进行反汇编操作：</strong></p>
+<figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">$ objdump -j .text -S test.o<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>ls，列表命令。</li>
 </ol>
-</blockquote>
+<p>1)ls最基本的命令会显示当前目录下的所有的文件和目录；（按照字母进行排序）</p>
+<p>2)<strong>$ ls -a</strong>，将当前目录下的所有隐藏文件和普通文件目录一起显示出来；</p>
+<p>3)<strong>$ ls -F</strong>，可以轻松的区分文件以及目录；</p>
+<p>4)<strong>$ ls -R</strong>，可以列出来当前目录下包含的子目录中的所有文件。</p>
+<p>5)<strong>$ ls -l</strong>，列出文件的详细信息。</p>
+<h2 id="二-采用scp命令实现本地文件和远程服务器的文件互传"><a href="#二-采用scp命令实现本地文件和远程服务器的文件互传" class="headerlink" title="二.采用scp命令实现本地文件和远程服务器的文件互传"></a>二.采用scp命令实现本地文件和远程服务器的文件互传</h2><h3 id="2-1-拷贝本地文件到远程服务器："><a href="#2-1-拷贝本地文件到远程服务器：" class="headerlink" title="2.1 拷贝本地文件到远程服务器："></a>2.1 拷贝本地文件到远程服务器：</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">scp [本地文件路径]  [user]@[远程服务器地址] :[文件在远程服务器的存放路径]<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-拷贝服务器文件到本地："><a href="#2-2-拷贝服务器文件到本地：" class="headerlink" title="2.2 拷贝服务器文件到本地："></a>2.2 拷贝服务器文件到本地：</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">scp [user]@[远程服务器地址]:[服务器文件路径] [文件在本地存放路径]<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-windows上传文件夹到linux服务器中："><a href="#2-3-windows上传文件夹到linux服务器中：" class="headerlink" title="2.3 windows上传文件夹到linux服务器中："></a>2.3 windows上传文件夹到linux服务器中：</h3><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs d">scp -rp [本地文件夹路径] [user]@[远程服务器地址]：[文件在服务器的存放路径]<br></code></pre></td></tr></table></figure>
+
+<h2 id="三-Linux挂载"><a href="#三-Linux挂载" class="headerlink" title="三. Linux挂载"></a>三. Linux挂载</h2><p>Linux系统中<em><strong>“一切皆文件”</strong></em>，所有的文件都放置在以根目录为树根的树形目录结构中。在Linux看来，任何硬件设备都是文件，他们各有自己的一套文件系统（目录文件结构）。</p>
+<p>因此，产生一个问题，当Linux系统中使用这些硬件设备的时候，我们无法通过命令行的方式来找到对应的硬件设备，比如当我们插入U盘也是如此，所以说只有将Linux本身的文件目录与硬件设备的文件目录合二为一的时候，硬件设备才可以被我们所用，合二为一的过程称0为<em><strong>挂载</strong></em>。</p>
+<img src="/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/1.png" srcset="/img/loading.gif" lazyload class="" title="图一">
+
+<p>从图1变成图2的过程就被称为<em><strong>挂载</strong></em>。</p>
+<img src="/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/2.png" srcset="/img/loading.gif" lazyload class="" title="二">
+
+<p><em><strong>我们挂载的时候，也不是说，任何目录都可以作为挂载点的，由于挂载操作会使得原有目录中文件被隐藏，因此根目录以及系统中原有的目录都不要作为挂载点，就会造成系统异常甚至崩溃，挂载点最好是新建的空目录。</strong></em></p>
 
                 
               </div>
@@ -356,8 +370,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>鸟哥私房菜</div>
-      <div>http://example.com/2022/10/09/鸟哥私房菜/</div>
+      <div>Linux操作系统学习</div>
+      <div>http://example.com/2022/10/09/Linux操作系统学习/</div>
     </div>
     <div class="license-meta">
       
@@ -406,9 +420,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/09/Makefile/" title="Makefile">
+                      <a href="/2022/10/09/Docker/" title="Docker">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Makefile</span>
+                        <span class="hidden-mobile">Docker</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -416,8 +430,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统">
-                        <span class="hidden-mobile">操作系统</span>
+                      <a href="/2022/10/09/Makefile/" title="Makefile">
+                        <span class="hidden-mobile">Makefile</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

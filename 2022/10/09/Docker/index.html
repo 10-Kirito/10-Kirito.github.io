@@ -16,22 +16,27 @@
   <meta name="author" content="10-Kirito">
   <meta name="keywords" content="">
   
-    <meta name="description" content="鸟哥私房菜零. 计算机概述1. 操作系统核心操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。 操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输">
+    <meta name="description" content="Docker学习1. 基本命令1.1 Docker 客户端我们可以直接输入docker命令来查看到Docker客户端的所有命令选项。 1runoob@runoob:~# docker  可以通过docker command –help更深入的了解指定的Docker命令使用方法。 1runoob@runoob:~# docker run --help  1.2容器使用1.2.1获取容器如果我们本地没">
 <meta property="og:type" content="article">
-<meta property="og:title" content="鸟哥私房菜">
-<meta property="og:url" content="http://example.com/2022/10/09/%E9%B8%9F%E5%93%A5%E7%A7%81%E6%88%BF%E8%8F%9C/index.html">
+<meta property="og:title" content="Docker">
+<meta property="og:url" content="http://example.com/2022/10/09/Docker/index.html">
 <meta property="og:site_name" content="10-Kirito">
-<meta property="og:description" content="鸟哥私房菜零. 计算机概述1. 操作系统核心操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。 操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输">
+<meta property="og:description" content="Docker学习1. 基本命令1.1 Docker 客户端我们可以直接输入docker命令来查看到Docker客户端的所有命令选项。 1runoob@runoob:~# docker  可以通过docker command –help更深入的了解指定的Docker命令使用方法。 1runoob@runoob:~# docker run --help  1.2容器使用1.2.1获取容器如果我们本地没">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-09T14:31:37.000Z">
-<meta property="article:modified_time" content="2022-10-09T14:32:24.743Z">
+<meta property="og:image" content="http://example.com/2022/10/09/Docker/1.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Docker/2.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Docker/3.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Docker/4.png">
+<meta property="article:published_time" content="2022-10-09T14:52:58.000Z">
+<meta property="article:modified_time" content="2022-10-09T15:01:56.167Z">
 <meta property="article:author" content="10-Kirito">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/10/09/Docker/1.png">
   
   
   
-  <title>鸟哥私房菜 - 10-Kirito</title>
+  <title>Docker - 10-Kirito</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +201,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="鸟哥私房菜"></span>
+            <span id="subtitle" data-typed-text="Docker"></span>
           
         </div>
 
@@ -207,7 +212,7 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-09 22:31" pubdate>
+        <time datetime="2022-10-09 22:52" pubdate>
           2022年10月9日 晚上
         </time>
       </span>
@@ -219,7 +224,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          2.7k 字
         
       </span>
     
@@ -230,7 +235,7 @@
         
         
         
-          13 分钟
+          23 分钟
         
       </span>
     
@@ -268,49 +273,94 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">鸟哥私房菜</h1>
+            <h1 style="display: none">Docker</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="鸟哥私房菜"><a href="#鸟哥私房菜" class="headerlink" title="鸟哥私房菜"></a>鸟哥私房菜</h1><h1 id="零-计算机概述"><a href="#零-计算机概述" class="headerlink" title="零. 计算机概述"></a>零. 计算机概述</h1><h2 id="1-操作系统核心"><a href="#1-操作系统核心" class="headerlink" title="1. 操作系统核心"></a>1. 操作系统核心</h2><p>操作系统本质上来将也是一组程序，该程序的主要功能就是管理电脑的所有活动以及驱动系统中的所有的硬件。所以说如果我们想自己去编写一个操作系统的话，我们就得去针对电脑的每一个功能，去设计操作系统，让其可以对电脑的所有活动进行管理。</p>
-<p>操作系统的功能就是让CPU可以开始判断逻辑与运算数值、让内存可以开始载入&#x2F;读出数据、让硬盘可以被读取、让网卡可以开始传输数据等等。实现这些功能的就是操作系统的核心（Kernel），也就是我们经常所说的Linux内核。</p>
-<h2 id="2-操作系统的核心功能"><a href="#2-操作系统的核心功能" class="headerlink" title="2. 操作系统的核心功能"></a>2. 操作系统的核心功能</h2><ul>
-<li>系统调用接口</li>
-<li>程序管理</li>
-</ul>
-<p><em><strong>当我们有很多任务要执行的时候，核心所要做的事情就是控制这些任务，让CPU的资源有效的分配。</strong></em></p>
-<ul>
-<li>内存管理</li>
-</ul>
-<p>控制整个系统的内存管理，系统所有的程序码与数据都必须事先存储在内存中去。核心通常会提供虚拟内存的功能，当内存不足的时候可以提供<em><strong>内存交换</strong></em>的功能。</p>
-<ul>
-<li>文件系统管理</li>
-</ul>
-<p>计算机中有着大量的文件，如果核心不懂得怎么去管理文件，那么计算机不就全乱套了。<em><strong>更何况Linux中，一切皆文件！</strong></em>我们常见的文件管理系统，在Windows中我们使用盘符的概念、在Linux中我们使用文件树的概念。</p>
-<p>如果核心不认识某一个文件系统的话，那么就将无法使用该文件格式的文件。</p>
-<ul>
-<li>设备的驱动</li>
-</ul>
-<p>在计算机中，有很多的硬件，但也就只是有很多，还得我们去一个一个去调用驱动管理硬件，目前都有所谓的“可载入模块”功能，可以将驱动程序编辑成模块，就不需要重新的编译核心。</p>
-<p>我们经常使用的硬盘、显卡、主板等等，我们的操作系统是不认识的，我们的操作系统要想驱动这些硬件，会提供一个开发接口给硬件开发商，让他们根据接口设计可以驱动硬件的“驱动程序”，这样我们安装驱动之后，就可以使得操作系统驱动这些硬件了。</p>
-<h1 id="一-主机规划与磁盘分区"><a href="#一-主机规划与磁盘分区" class="headerlink" title="一. 主机规划与磁盘分区"></a>一. 主机规划与磁盘分区</h1><h2 id="1-开始流程中的BIOS与UEFI开机检测程序"><a href="#1-开始流程中的BIOS与UEFI开机检测程序" class="headerlink" title="1.开始流程中的BIOS与UEFI开机检测程序"></a>1.开始流程中的BIOS与UEFI开机检测程序</h2><p>通过前面的知识，我们可以知道我们操作系统会控制所有的硬件并且提供核心功能，因此我们的计算机可以认识硬盘内的文件系统，并进而去读取文件。</p>
-<p><em><strong>但是又有一个新的问题，我们的操作系统也是软件啊，我们的计算机又是如何认识这个操作系统的呢？</strong></em></p>
-<p>这就牵扯到我们的开机程序了！当前主要有BIOS和UEFI两种！	</p>
-<h3 id="1-1-BIOS搭配MBR-x2F-GPT的开机流程"><a href="#1-1-BIOS搭配MBR-x2F-GPT的开机流程" class="headerlink" title="1.1 BIOS搭配MBR&#x2F;GPT的开机流程"></a>1.1 BIOS搭配MBR&#x2F;GPT的开机流程</h3><blockquote>
-<p>在计算机概论里面我们有谈到那个可爱的BIOS与CMOS两个东西， CMOS是记录各项硬件参数且嵌入在主板上面的储存器，BIOS则是一个写入到主板上的一个固件（<em><strong>再次说明， 固件就是写入到硬件上的 一个软件程序</strong></em>）。</p>
-<p>这个<em><strong>BIOS就是在开机的时候，计算机系统会主动执行的第一个程序</strong></em>了！ </p>
-<p>接下来BIOS会去分析计算机里面有哪些储存设备，我们以硬盘为例，BIOS会依据使用者的设置去取得能够开机的硬盘， 并且到该硬盘里面去读取第一个扇区的MBR位置。</p>
-<p>MBR这个仅有446Bytes的硬盘容量里面会放置<em><strong>最基本的开机管理程序</strong></em>， 此时BIOS就功成圆满。</p>
-<p>而接下来就是MBR内的开机管理程序的工作了。 这个<em><strong>开机管理程序的目的是在载入（load）核心文件</strong></em>， 由于开机管理程序是操作系统在安装的时候所提供的，所以他会认识硬盘内的文件系统格式，因此就能够读取核心文件。</p>
-<p>然后接下来就是<em><strong>核心文件的 工作</strong></em>，开机管理程序与 BIOS 也功成圆满，将之后的工作就交给大家所知道的操作系统啦！ 简单的说，整个开机流程到操作系统之前的动作应该是这样的：</p>
-<ol>
-<li>BIOS：开机主动执行的固件，会认识第一个可开机的设备；</li>
-<li>MBR：第一个可开机设备的第一个扇区内的主要开机记录区块，内含开机管理程序；</li>
-<li>开机管理程序（boot loader）：一支可读取核心文件来执行的软件；</li>
-<li>核心文件：开始操作系统的功能…</li>
-</ol>
-</blockquote>
+                <h1 id="Docker学习"><a href="#Docker学习" class="headerlink" title="Docker学习"></a>Docker学习</h1><h2 id="1-基本命令"><a href="#1-基本命令" class="headerlink" title="1. 基本命令"></a>1. 基本命令</h2><h3 id="1-1-Docker-客户端"><a href="#1-1-Docker-客户端" class="headerlink" title="1.1 Docker 客户端"></a>1.1 Docker 客户端</h3><p>我们可以直接输入docker命令来查看到Docker客户端的所有命令选项。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dockerfile">runoob@runoob:~<span class="hljs-comment"># docker</span><br></code></pre></td></tr></table></figure>
+
+<p>可以通过<strong>docker command –help</strong>更深入的了解指定的Docker命令使用方法。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs doc">runoob@runoob:~# docker run --help<br></code></pre></td></tr></table></figure>
+
+<h3 id="1-2容器使用"><a href="#1-2容器使用" class="headerlink" title="1.2容器使用"></a>1.2容器使用</h3><h4 id="1-2-1获取容器"><a href="#1-2-1获取容器" class="headerlink" title="1.2.1获取容器"></a>1.2.1<strong>获取容器</strong></h4><p>如果我们本地没有ubuntu镜像的话，我们可以使用docker pull命令进入该容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker pull ubuntu(后面也可以添加相应的版本，具体可以到下面的网站去查看，即公开的registry)<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://hub.docker.com/">https://hub.docker.com</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker pull [option] name [:tag|@digest]<br>//你可以这样用<br>$ docker pull ubuntu:14.04<br>//也可以这样用<br>$ docker pull ubuntu@sha256:45b23dee08af5e43a7fea6c4cf9c25ccf269ee113168c19722f87876677c5cb2<br>//当我们通过摘要digest拉取镜像的方式的话，我们就可以获取一个固定版本的镜像，要想获得镜像的摘要信息，需要我们先pull下一个镜像文件，随后docker会自动帮我们打<br>//印出该镜像的摘要信息<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-2启动容器"><a href="#1-2-2启动容器" class="headerlink" title="1.2.2启动容器"></a>1.2.2<strong>启动容器</strong></h4><p>以下命令使用Ubuntu镜像启动一个容器，参数位以命令行模式进入该模式：</p>
+<p><strong>该命令在使用的时候需要注意，当我们的docker中没有相关的镜像的时候，我们使用该命令，docker会现在本地文件中寻找相关的docker文件，当找不到的时候，会去官网上去下载相关的镜像文件，最后创建容器。我们每执行依次该命令的时候，就会新创建一个容器，和之前一样的容器。</strong></p>
+<p><strong>所以说，该命令一般是对一个镜像使用一次就可以了！</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker run -it ubuntu /bin/bash<br></code></pre></td></tr></table></figure>
+
+<p><strong>参数说明：</strong></p>
+<p>· <strong>-i</strong>:交互式操作；</p>
+<p>·**-t**:终端；</p>
+<p>·<strong>ubuntu</strong>:ubuntu镜像；</p>
+<p>·**&#x2F;bin&#x2F;bash**:放在镜像名字后面的是命令，这里我们希望有一个交互式shell，因此使用的是&#x2F;bin&#x2F;bash.</p>
+<p><strong>如果说要退出终端，直接输入exit即可。</strong></p>
+<h4 id="1-2-3-启动已经停止运行的容器"><a href="#1-2-3-启动已经停止运行的容器" class="headerlink" title="1.2.3 启动已经停止运行的容器"></a>1.2.3 启动已经停止运行的容器</h4><p>查看所有的容器的命令是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker ps -a<br></code></pre></td></tr></table></figure>
+
+<img src="/2022/10/09/Docker/1.png" srcset="/img/loading.gif" lazyload class="" title="图一">
+
+<p>使用docker start启动一个已经停止的容器：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker start 8de9b40eb61a<br></code></pre></td></tr></table></figure>
+
+<img src="/2022/10/09/Docker/2.png" srcset="/img/loading.gif" lazyload class="" title="图二">
+
+<h4 id="1-2-4-后台运行"><a href="#1-2-4-后台运行" class="headerlink" title="1.2.4 后台运行"></a>1.2.4 后台运行</h4><p>在大部分的场景下，我们希望docker的服务是在后台运行的，我们可以通过-d指定容器的运行模式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dock">$ docker run -itd --name ubuntu-test ubuntu /bin/bash<br></code></pre></td></tr></table></figure>
+
+<img src="/2022/10/09/Docker/3.png" srcset="/img/loading.gif" lazyload class="" title="图三">
+
+<img src="/2022/10/09/Docker/4.png" srcset="/img/loading.gif" lazyload class="" title="图四">
+
+<h4 id="1-2-5-停止一个容器"><a href="#1-2-5-停止一个容器" class="headerlink" title="1.2.5 停止一个容器"></a>1.2.5 停止一个容器</h4><p>停止一个容器的命令是：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker stop &lt;容器 ID&gt;<br></code></pre></td></tr></table></figure>
+
+<p>停止的容器可以通过docker restart重启：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker restart &lt;容器 ID&gt;<br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-6-进入容器"><a href="#1-2-6-进入容器" class="headerlink" title="1.2.6 进入容器"></a>1.2.6 进入容器</h4><p>在使用参数<code>-d</code>的时候，容器启动后会进入后台，此时想要进入容器，可以通过以下指令进入：</p>
+<p><code>docker attach</code></p>
+<p><code>docker exec: 推荐大家使用docker exec命令，因为此命令会退出容器终端，但不会导致容器的停止。</code></p>
+<p><code>attach</code>命令</p>
+<p>下面演示使用<code>docker attach</code>命令：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker attach &lt;容器 ID&gt;<br></code></pre></td></tr></table></figure>
+
+<p><strong>ps:从该容器退出的话，会导致容器的停止。</strong></p>
+<p>下面演示使用<code>docker exec</code>命令：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">docker exec -it &lt;容器 ID&gt; /bin/bash<br></code></pre></td></tr></table></figure>
+
+<p><strong>ps：如果从这个容器退出的话，容器不会停止</strong></p>
+<h4 id="1-2-7-导出和导入容器"><a href="#1-2-7-导出和导入容器" class="headerlink" title="1.2.7 导出和导入容器"></a>1.2.7 导出和导入容器</h4><h5 id="1）导出容器"><a href="#1）导出容器" class="headerlink" title="1）导出容器"></a>1）导出容器</h5><p>使用命令<code>docker export</code></p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker export &lt;容器 ID&gt; &gt; ubuntu.tar<br><span class="hljs-comment">//导出容器快照到本地文件ubuntu.tar</span><br><span class="hljs-comment">//快照就是对数据一个快速的复制</span><br><span class="hljs-comment">//执行以上命令之后，会在当前文件夹生成ubuntu.tar文件，我们可以将文件拷贝到其他机器上去，通过导入命令实现容器的迁移</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="2）导入容器快照到镜像文件中："><a href="#2）导入容器快照到镜像文件中：" class="headerlink" title="2）导入容器快照到镜像文件中："></a>2）导入容器快照到镜像文件中：</h5><figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs do">$ <span class="hljs-keyword">cat</span> ubuntu.tar | docker import - <span class="hljs-keyword">test</span>/ubuntu:v1<br><span class="hljs-comment">//上述命令会创建一个名字为test/ubuntu的容器以及版本位v1</span><br></code></pre></td></tr></table></figure>
+
+<p>然后我们再通过镜像来创建一个新的容器，这样一个一模一样的容器就创建完毕！</p>
+<p>此外，我们也可以通过指定URL或者某一个目录来导入，例如：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker import http:<span class="hljs-comment">//example.com/exampleimage.tgz example/imagerepo</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="1-2-8-删除容器"><a href="#1-2-8-删除容器" class="headerlink" title="1.2.8 删除容器"></a>1.2.8 删除容器</h4><p>删除容器使用<code>docker rm</code>命令：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs do">$ docker <span class="hljs-keyword">rm</span> -f &lt;容器 ID&gt;<br></code></pre></td></tr></table></figure>
+
+<p>清除掉所有处于终止状态的容器：</p>
+<p><code>$ docker container prune</code></p>
+<p>··············（更多参考<a target="_blank" rel="noopener" href="https://www.runoob.com/docker/docker-container-usage.html%EF%BC%89">https://www.runoob.com/docker/docker-container-usage.html）</a></p>
+<h3 id="1-3-docker小小的配置"><a href="#1-3-docker小小的配置" class="headerlink" title="1.3 docker小小的配置"></a>1.3 docker小小的配置</h3><p>我们最开始安装完docker后，执行相关的命令会出现</p>
+<p><code>”Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Get http://%2Fvar%2Frun%2Fdocker.sock/v1.26/images/json: dial unix /var/run/docker.sock: connect: permission denied“</code></p>
+<p>大概的意思就是：docker进程使用Unix Socket而不是TCP端口。而默认情况下，Unix socket属于root用户，需要root权限才能访问。</p>
+<p><strong>解决方法1</strong></p>
+<p>使用sudo获取管理员权限，运行docker命令</p>
+<p><strong>解决方法2</strong></p>
+<p>docker守护进程启动的时候，会默认赋予名字为docker的用户组读写Unix socket的权限，因此只要创建docker用户组，并将当前用户加入到docker用户组中，那么当前用户就有权限访问Unix socket了，进而也就可以执行docker相关命令：</p>
+<figure class="highlight do"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs do">sudo groupadd docker     #添加docker用户组<br>sudo gpasswd -a <span class="hljs-variable">$USER</span> docker     #将登陆用户加入到docker用户组中<br>newgrp docker     #更新用户组<br>docker ps    #测试docker命令是否可以使用sudo正常使用<br></code></pre></td></tr></table></figure>
+
+<p>docker pull kalilinux&#x2F;kali-bleeding-edge:latest</p>
 
                 
               </div>
@@ -356,8 +406,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>鸟哥私房菜</div>
-      <div>http://example.com/2022/10/09/鸟哥私房菜/</div>
+      <div>Docker</div>
+      <div>http://example.com/2022/10/09/Docker/</div>
     </div>
     <div class="license-meta">
       
@@ -406,18 +456,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/10/09/Makefile/" title="Makefile">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Makefile</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/09/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" title="操作系统">
-                        <span class="hidden-mobile">操作系统</span>
+                      <a href="/2022/10/09/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0/" title="Linux操作系统学习">
+                        <span class="hidden-mobile">Linux操作系统学习</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
