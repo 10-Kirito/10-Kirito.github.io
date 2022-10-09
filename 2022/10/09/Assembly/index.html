@@ -1,0 +1,849 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="10-Kirito">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Assembly - Study一.运行第一个程序1.首先简单编写一段代码 1234567891011121314151617181920STACK	SEGMENT  PARA  &amp;#x27;STACK&amp;#x27;				;定义堆栈段，段名为 STACK（可以取其他的）		DB 100 DUP(&amp;#x27;?&amp;#x27;)						;分配堆栈的大小，设置为100字节，以？填充STACK	ENDS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Assembly">
+<meta property="og:url" content="http://example.com/2022/10/09/Assembly/index.html">
+<meta property="og:site_name" content="10-Kirito">
+<meta property="og:description" content="Assembly - Study一.运行第一个程序1.首先简单编写一段代码 1234567891011121314151617181920STACK	SEGMENT  PARA  &amp;#x27;STACK&amp;#x27;				;定义堆栈段，段名为 STACK（可以取其他的）		DB 100 DUP(&amp;#x27;?&amp;#x27;)						;分配堆栈的大小，设置为100字节，以？填充STACK	ENDS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/09/Assembly/1.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Assembly/2.png">
+<meta property="article:published_time" content="2022-10-09T14:17:41.000Z">
+<meta property="article:modified_time" content="2022-10-09T14:20:49.994Z">
+<meta property="article:author" content="10-Kirito">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/10/09/Assembly/1.png">
+  
+  
+  
+  <title>Assembly - 10-Kirito</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello,10-Kirito！</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Assembly"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-09 22:17" pubdate>
+          2022年10月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          7.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          63 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Assembly</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Assembly-Study"><a href="#Assembly-Study" class="headerlink" title="Assembly - Study"></a>Assembly - Study</h1><h2 id="一-运行第一个程序"><a href="#一-运行第一个程序" class="headerlink" title="一.运行第一个程序"></a>一.运行第一个程序</h2><p>1.首先简单编写一段代码</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs assembly">STACK	SEGMENT  PARA  &#x27;STACK&#x27;				;定义堆栈段，段名为 STACK（可以取其他的）<br>		DB 100 DUP(&#x27;?&#x27;)						;分配堆栈的大小，设置为100字节，以？填充<br>STACK	ENDS								;堆栈段结束<br>DATA	SEGMENT								;定义数据段，段名为 DATA （可以取其他的）<br>  		STRING	DB &#x27;HELLO!&#x27;,&#x27;$&#x27;				;定义字符串数据<br>DATA	ENDS<br>CODE	SEGMENT								;定义代码段，段名为 CODE （可以取其他的）<br>		ASSUME CS:CODE, DS:DATA, SS:STACK	;特别重要，将 CS、DS、SS 指向定义的段<br>START:	MOV  AX,  DATA						;程序开始的地方<br>		MOV  DS,  AX<br>		MOV  AX,  STACK<br>		MOV  SS,  AX<br>		LEA  DX,  STRING<br>		MOV  AH, 09H<br>		INT  21H<br>		MOV  AH,  4CH<br>		INT  21H<br>CODE  	ENDS						<br>		END START 							;程序结束的地方<br>//输出HELLO!<br></code></pre></td></tr></table></figure>
+
+<p>2.对该代码文件进行编译，如果有错误会进行报错，如果没有错误的话，在编译器masm.exe运行的目录D:&#x2F;Assembly&#x2F;ASM下，会出现一个新的文件hello.obj</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ass">masm hello.asm<br></code></pre></td></tr></table></figure>
+
+<p>3.对obj文件进行连接，连接成可执行文件</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ass">link hello.obj<br></code></pre></td></tr></table></figure>
+
+<p>4.对可执行文件进行调试：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs ass">debug hello.exe<br></code></pre></td></tr></table></figure>
+
+<h2 id="二-对上面程序的简单的解析"><a href="#二-对上面程序的简单的解析" class="headerlink" title="二.对上面程序的简单的解析"></a>二.对上面程序的简单的解析</h2><h2 id="三-汇编指令"><a href="#三-汇编指令" class="headerlink" title="三.汇编指令"></a>三.汇编指令</h2><h3 id="3-1-offset和lea"><a href="#3-1-offset和lea" class="headerlink" title="3.1 offset和lea"></a>3.1 offset和lea</h3><p>二者都是得到某一个变量或者其他的偏移地址，二者相比起来，offset是<strong>伪指令</strong>,(<strong>伪指令</strong>与<strong>汇编指令</strong>相对，汇编指令是有相应的机器码一一对应的，而伪指令是由编译器来执行的，就是只有编译器才认识的指令，编译器会进行相关的编译工作，最常见的伪指令，比如说我们描述代码段、数据段、堆栈段的时候，使用到的data segment …data ends，这些都是伪指令，是由编译器进行编译的。)offset是伪指令，他是在编译的时候执行的，即编译阶段得出偏移地址，lea在程序执行的时候才会得到相应的偏移地址。</p>
+<p>从速度上来讲，offset要比lea来的快！但是，从复杂度和灵活性来说，lea则远远超过offset。</p>
+<h3 id="3-2-INT-21H"><a href="#3-2-INT-21H" class="headerlink" title="3.2 INT 21H"></a>3.2 INT 21H</h3><p>我们以8086 CPU的汇编为例，输出一个字符串，就要使用如下的指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ah,09h<br>int 21h<br></code></pre></td></tr></table></figure>
+
+<p>我们上面的指令就是要让显示器输入一个字符串，我们要实现这个功能，我们实际上就是要调用DOS系统的功能来实现，DOS系统含有很多的功能，比如接受用户输入<code>(mov ah,01h)</code>，显示输出<code>(mov ah,02h)</code>，每一个功能都有一个编号，该编号是存储在ah寄存器里面。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ah, 09h<br>int 21h<br></code></pre></td></tr></table></figure>
+
+<p>上面的代码是先将ah寄存器里面的值赋为09h，然后调用汇编指令<code>int 21h</code>，该指令为中断指令，因为我们需要调用DOS里面的功能，所以我们需要说，大家都停止运行，这个时候DOS系统会查好ah里面的内容，然后执行相关的功能。</p>
+<p>所以，我们可以将<code>int 21h</code>理解为命令系统开始工作的意思，至于做什么工作，那得看我们事先将什么编码放进ah寄存器中。</p>
+<h3 id="3-3-PTR"><a href="#3-3-PTR" class="headerlink" title="3.3 PTR"></a>3.3 PTR</h3><p>PTR–pointer（指针）的缩写。</p>
+<p><em><strong>PTR在汇编中是临时的类型转换，相当于C语言中的强制类型转换。</strong></em></p>
+<p>比如<code>mov ax,bx</code>是将BX寄存器里面的值赋予给ax，由于二者都是寄存器，长度已经确定（word），所以就没有必要使用ptr。</p>
+<p>但是<code>mov ax,word ptr[bx]</code>，就不一样了。该指令所做的事情是将内存地址等于BX寄存器的值的数据赋予AX寄存器，但是你只给出一个地址，准确的来讲是指给出了一个数据的起始地址，至于该数据的大小怎么样我们是不知道的，所以说我们需要用word明确指出是字类型。如果不使用的话，即<code>mov ax,[bx]</code>则默认是传递一个字，即两个字节给ax寄存器。</p>
+<p>以下例子，默认指明指令进行的是字节操作：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ax,1<br>mov bx,ds:[0]<br>mov ds,ax<br>mov ds:[0],ax<br>inc ax<br>add ax,1000<br></code></pre></td></tr></table></figure>
+
+<p>以下例子，寄存器指明了指令进行的是字节操作（因为是AL）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov al,1<br>mov al,bl<br>mov al,ds:[0]<br>mov ds:[0],al<br>inc al<br>add al,100<br></code></pre></td></tr></table></figure>
+
+<p>以下例子，没有寄存器名存在的情况，在内存中操作我们不知道具体的大小，所以需要使用ptr来指明内存单元的大小，不指明的话，内存是一片连续的区域，操作就乱了：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov word ptr ds:[0],1;该指令是指将立即数1存放到数据段的ds:0地址处，大小为一个字<br>inc word ptr [bx];该指令是指将以bx寄存器内容为起始地址大小为一个字的数据加一<br>inc word ptr ds:[0]<br>add word ptr [bx],2<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>在没有寄存器参与的内存单元访问指令中，使用<code>word ptr</code>或者<code>byte ptr</code>显性的指明所要访问的内存单元的长度是很必要的，否则CPU无法得知所要访问的单元，是字节单元还是字单元。</strong></em></p>
+<p>但是还有一些比较特殊的指令，比如说<code>push [100h]</code>就无需指明是将一个字节数据还是一个字数据压栈，因为<code>push</code>指令只进行字操作。</p>
+<h3 id="3-4-JMP寻址时候的short，near-far区别"><a href="#3-4-JMP寻址时候的short，near-far区别" class="headerlink" title="3.4 JMP寻址时候的short，near,far区别"></a>3.4 JMP寻址时候的short，near,far区别</h3><p>jmp位无条件转移指令，可以指修改IP，也可以同时修改CS和IP。</p>
+<p>jmp指令要给出两种信息：</p>
+<p>a. 转移的目的地址；</p>
+<p>b. 转移的距离（段间距离、段内距离、段内近距离）</p>
+<p><em><strong>示例1：</strong></em></p>
+<p><code>jmp short 标号</code>转移标号处执行指令</p>
+<p>IP修改范围位：-128~127，short说明进行的是短转移。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs ass">assume cs:code<br>code segment<br>start :<br>	mov ax,0<br>	jmp short s<br>	ass ax,1<br>s:  inc ax<br>code ends<br>end start<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>示例2：</strong></em></p>
+<p><code>jmp near ptr 标号</code>，(IP) &#x3D; (IP) + 16位位移，实现的是段内近转移</p>
+<p>IP的修改范围：-32768~32767，用补码来表示</p>
+<p><em><strong>示例3：</strong></em></p>
+<p><code>jmp far ptr 标号</code>实现的是段间转移（远转移）</p>
+<p><em><strong>既然都是段间转移，说明该指令改变的不仅仅是IP，还有CS的值；</strong></em></p>
+<h3 id="3-5-proc-near-x2F-far"><a href="#3-5-proc-near-x2F-far" class="headerlink" title="3.5 proc near&#x2F;far"></a>3.5 proc near&#x2F;far</h3><p><em><strong>PROC是定义子程序，即定义子函数的伪指令，位置在于子程序的开始处，他和endp分别表示子程序定义的开始和结束，二者必须成对的出现。</strong></em></p>
+<p><em>near属性，（段内近调用），调用程序和子程序位于同一代码段中，只能被相同的代码段的其他程序所调用；</em></p>
+<p><em>far属性，（段间远调用），调用程序和子程序不在同一代码段中，可以被相同或者不同代码段的程序调用；</em></p>
+<h3 id="3-6-CALL和RET"><a href="#3-6-CALL和RET" class="headerlink" title="3.6 CALL和RET"></a>3.6 CALL和RET</h3><p>参考文章：<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/3537.html">http://c.biancheng.net/view/3537.html</a></p>
+<p>CALL指令调用一个程序，指挥处理器从新的内存地址开始执行。程序将使用RET指令将处理器转回到该过程被调用的程序点上。</p>
+<p>调用的过程就是函数栈的工作方式，调用子函数的时候，提前需要保存CALL指令之后的指令的地址，然后将子函数的内存地址赋值给DS：IP。</p>
+<img src="/2022/10/09/Assembly/1.png" srcset="/img/loading.gif" lazyload class="" title="图一">
+
+<p>待得子函数结束之后，执行RET指令，SP（栈指针）指向的堆栈值弹出到IP，然后SP得数值增加1，指向堆栈中的前一个值。</p>
+<img src="/2022/10/09/Assembly/2.png" srcset="/img/loading.gif" lazyload class="" title="图二">
+
+<h2 id="四-汇编语言在数据段使用数据定义伪指令-定义-变量"><a href="#四-汇编语言在数据段使用数据定义伪指令-定义-变量" class="headerlink" title="四.汇编语言在数据段使用数据定义伪指令 定义 变量"></a>四.汇编语言在数据段使用数据定义伪指令 定义 变量</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs ass">1.db(byte,1字节)<br>2.dw(word,2字节)<br>3.dd(double word,双字，四字节)<br>示例如下：<br>data segment<br>	a db 1;定义一个字节型变量，名称为a，初始值为01h<br>	b db &quot;1&quot;;定义一个字符型变量，名称为b,初始值为&quot;1&quot;<br>	c dw 1;定义一个字型变量，名称为c,初始值为0001h<br>	d dd 1;定义一个双字型变量，名称为d,初始值为0000 0001h<br>	buf db 50 dup(1);定义连续50个字节型变量，名称为buf，初始值为01h<br>	buf1 db &quot;1234567&quot;;定义一个字符型变量，名称为buf1,初始值为&quot;1234567&quot;<br>	;dup的使用格式<br>	;db 重复的次数 dup(重复的字节型数据)<br>	;dw 重复的次数 dup(重复的字型数据) <br>	;dd 重复的次数 dup(重复的双子型数据)<br>dataends<br></code></pre></td></tr></table></figure>
+
+<h2 id="五-与数据有关的寻址方式（针对某一个操作数所讲）"><a href="#五-与数据有关的寻址方式（针对某一个操作数所讲）" class="headerlink" title="五. 与数据有关的寻址方式（针对某一个操作数所讲）"></a>五. 与数据有关的寻址方式（针对某一个操作数所讲）</h2><p><em><strong>这种寻址方式用来确定操作数地址从而找到操作数。</strong></em></p>
+<p>讲人话就是，我们如果要使用到某一个数据的话，怎么利用汇编指令将该数据找到。</p>
+<h3 id="5-1-立即寻址方式（立即数寻址）"><a href="#5-1-立即寻址方式（立即数寻址）" class="headerlink" title="5.1 立即寻址方式（立即数寻址）"></a>5.1 立即寻址方式（立即数寻址）</h3><p>操作数直接放在操作数位上，作为指令的一部分。执行速度快，主要是给寄存器赋值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ASS">MOV AX,14<br>;主要是给寄存器赋值，不能直接给段寄存器赋值<br>;前操作数是寄存器寻址，后操作数是立即数寻址<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-2-寄存器寻址方式"><a href="#5-2-寄存器寻址方式" class="headerlink" title="5.2 寄存器寻址方式"></a>5.2 寄存器寻址方式</h3><p>操作数在寄存器里面，直接去寄存器中寻找操作数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs asss">MOV AX,BX;两个操作数都是寄存器寻址<br></code></pre></td></tr></table></figure>
+
+<h3 id="5-3-存储器寻址"><a href="#5-3-存储器寻址" class="headerlink" title="5.3 存储器寻址"></a>5.3 存储器寻址</h3><ul>
+<li>操作数存放在存储器中，而不是寄存器中（寄存器和存储器是不一样的概念，寄存器是独立存在的，我们经常用的寄存器有AX、BX等等这些，而存储器是什么呢，就是内存中的一个一个的内存单元所组成的存储器）。用存储器寻址的指令，操作数一定在数据段、堆栈段、附加段中的主存储器中，指令中一定包含有存储器单元的地址；</li>
+<li>执行指令时，CPU先根据指令提供的地址信息，计算出偏移地址，然后和段寄存器相加，得到可以直接访问的内存地址，再从内存中取出操作数，执行响应的操作；</li>
+<li>注意点：</li>
+</ul>
+<p>a. 可以采用段跨越前缀方式来改变系统指定的默认段，默认的段是数据段DS；</p>
+<p>b. 串处理（即字符串处理）必须要使用ES段（附加数据段）；</p>
+<p>c. 栈操作指令必须使用SS段（堆栈段）；</p>
+<p>d. 指令必须在CS（代码段）；</p>
+<ul>
+<li>有效地址可以由以下四种成分组成：</li>
+</ul>
+<p>a. 位移量；</p>
+<p>b. <em><strong>基址，存放在基址寄存器中的内容，他是有效地址中的基址部分，通常用来指向数据段中数组或者字符串的首地址</strong></em>；</p>
+<p>c. 变址，存放在变址寄存器中的内容，通常用来访问数组中的某一个元素或者字符串中的某一个字符；</p>
+<p>d. 比例因子，其值可为1，2，4，8。在寻址中，可用变址寄存器的内容乘以比例因子来取得变址量，对于访问元素长度为2，4，8字节的数据有用；</p>
+<table>
+<thead>
+<tr>
+<th>四种成分</th>
+<th>16位寻址</th>
+<th>32位寻址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位移量</td>
+<td>0，8，16位</td>
+<td>0，8，32位</td>
+</tr>
+<tr>
+<td>基址寄存器</td>
+<td>BX，BP（称为基址指针寄存器，一般是和堆栈段寄存器联用确定SS段中某一存储单元的地址）</td>
+<td>任何32位通用寄存器（包括ESP）</td>
+</tr>
+<tr>
+<td>变址（Index）寄存器</td>
+<td>SI(Source Index)，DI(Destination Index)一般与DS联用，来确定数据段中某一个存储单元的地址</td>
+<td>除ESP以外的32位通用寄存器</td>
+</tr>
+<tr>
+<td>比例因子</td>
+<td>无</td>
+<td>1，2，4，8</td>
+</tr>
+</tbody></table>
+<h4 id="5-3-1-直接寻址方式"><a href="#5-3-1-直接寻址方式" class="headerlink" title="5.3.1 直接寻址方式"></a>5.3.1 直接寻址方式</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov al,[2000]<br>mov ax,[2000];默认是将字单元取出来传送到ax寄存器中<br>mov ax,es:[2000];段超越<br>mov dword ptr [1234],eax;将eax里面的双字数据传送到内存地址为ds:1234的位置<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-3-2-寄存器间接寻址方式"><a href="#5-3-2-寄存器间接寻址方式" class="headerlink" title="5.3.2 寄存器间接寻址方式"></a>5.3.2 寄存器间接寻址方式</h4><p>直接寻址方式是直接将偏移地址放在操作数位上，这样难免有些不雅，所以说我们将偏移地址放在寄存器中，然后再来通过访问寄存器的内容来得知内存单元的偏移地址，存放偏移地址的寄存器称为间址寄存器。</p>
+<p>间址寄存器又分为两类，一类是基址寄存器（BX，BP），一类是变址寄存器（SI，DI）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ax ,[bx];这个是一个很简单的寄存器间接寻址方式，该指令执行的内容不是将bx寄存器的数据传送到ax寄存器中，而是将以bx寄存器内容为起始地址的大小为一个字的数据<br>			;传送到ax寄存器中<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-3-3-寄存器相对寻址方式"><a href="#5-3-3-寄存器相对寻址方式" class="headerlink" title="5.3.3 寄存器相对寻址方式"></a>5.3.3 寄存器相对寻址方式</h4><ul>
+<li>与寄存器间接寻址方式类似，但不同的是，需要另外指定一个位移量，对于16位系统来讲，位移量是8位或者16位；对于32位系统来讲，位移量是8位或者32位，位移量是一个带符号的整数；</li>
+<li>例如<code>mov ax 10h[si]</code>，相当于<code>mov ax ,[si+10h]</code></li>
+<li>也可以结合段跨越前缀，例如<code>MOV DL,ES:STRING[SI]</code>该指令相当于<code>MOV DL,ES:[SI + STRING]</code>。</li>
+</ul>
+<h4 id="5-3-4-基址变址寻址方式"><a href="#5-3-4-基址变址寻址方式" class="headerlink" title="5.3.4 基址变址寻址方式"></a>5.3.4 基址变址寻址方式</h4><ul>
+<li>指的就是操作数的偏移地址一部分在基址寄存器，一部分在变址寄存器，基址寄存器的内容再加上变址寄存器的内容就是操作数的偏移地址。</li>
+<li>例如<code>mov ax,[bx][si]</code>等价于<code>mov ax,[bx+si]</code>；</li>
+</ul>
+<h4 id="5-3-5-相对基址变址寻址方式"><a href="#5-3-5-相对基址变址寻址方式" class="headerlink" title="5.3.5 相对基址变址寻址方式"></a>5.3.5 相对基址变址寻址方式</h4><ul>
+<li>就是带位移量的基址变址寻址方式称为相对基址变址寻址</li>
+<li>示例：</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ax,100[bx][si];相当于mov ax,100[bx + si]<br>mov ax,100[bp][si]<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-3-6-比例变址寻址方式"><a href="#5-3-6-比例变址寻址方式" class="headerlink" title="5.3.6 比例变址寻址方式"></a>5.3.6 比例变址寻址方式</h4><ul>
+<li>只有在32位以及以后的80x86系统中使用</li>
+<li>示例：<code>mov eax,table[ebp][edi*4]</code></li>
+</ul>
+<h3 id="5-4-I-x2F-O地址寻址"><a href="#5-4-I-x2F-O地址寻址" class="headerlink" title="5.4 I&#x2F;O地址寻址"></a>5.4 I&#x2F;O地址寻址</h3><h4 id="5-4-1-direct-i-x2F-o-port-addressing-直接端口寻址"><a href="#5-4-1-direct-i-x2F-o-port-addressing-直接端口寻址" class="headerlink" title="5.4.1 direct i&#x2F;o port addressing(直接端口寻址)"></a>5.4.1 direct i&#x2F;o port addressing(直接端口寻址)</h4><ul>
+<li>使用00h-ffh表示0-122个8位的I&#x2F;O端口地址，就可以直接进行I&#x2F;O端口寻址；</li>
+<li>示例：<code>in al ,80h</code>将80h端口的数据输入到al寄存器中；</li>
+<li><code>in ax,80h</code>将80h端口的数据输入到ax寄存器中；</li>
+<li><code>out 80h,al</code>字节输出指令，将al寄存器的内容输出到80h端口；</li>
+</ul>
+<h4 id="5-4-2-indirect-i-x2F-o-port-addressing-间接端口寻址"><a href="#5-4-2-indirect-i-x2F-o-port-addressing-间接端口寻址" class="headerlink" title="5.4.2 indirect i&#x2F;o port addressing(间接端口寻址)"></a>5.4.2 indirect i&#x2F;o port addressing(间接端口寻址)</h4><ul>
+<li>如果端口大于256个，实际上是65536个端口，我们就必须使用间接寻址，就是先将端口号传送到dx寄存器中，然后将dx寄存器放到操作数上；</li>
+<li><code>mov dx,200h</code></li>
+<li><code>out dx,al</code></li>
+<li><code>in ax ,dx</code></li>
+</ul>
+<h3 id="5-5-与转移地址有关的指令"><a href="#5-5-与转移地址有关的指令" class="headerlink" title="5.5 与转移地址有关的指令"></a>5.5 与转移地址有关的指令</h3><ul>
+<li>转移指令可以改变指令的执行顺序，进行跳转，比如说最常见的<code>JMP</code>等等。简而言之，就是改变CS和IP的值，从而改变下一条要执行的指令的物理地址；</li>
+<li>转移的话，也分为段内转移以及段间转移，都可以使用直接寻址和间接寻址</li>
+</ul>
+<h4 id="5-5-1-段内直接寻址"><a href="#5-5-1-段内直接寻址" class="headerlink" title="5.5.1 段内直接寻址"></a>5.5.1 段内直接寻址</h4><p><code>jmp label</code>label为转移的地址符号，也称为标号</p>
+<p>示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ass">	jmp short s<br>	add ax,1<br>s:	inc ax<br></code></pre></td></tr></table></figure>
+
+<p>该段指令很简单，就是跳转到s处执行指令<code>inc ax</code></p>
+<h4 id="5-5-2-段内间接寻址"><a href="#5-5-2-段内间接寻址" class="headerlink" title="5.5.2 段内间接寻址"></a>5.5.2 段内间接寻址</h4><p>转移的偏移地址存储在寄存器里面或者存储在某一个存储单元中。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs ass">jmp bx;<br>jmp word ptr [bp];<br>jmp word ptr[bp + val];BP+VAL指向的内存单元的一个字传送给IP寄存器，作为偏移地址<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-5-3-段间直接寻址"><a href="#5-5-3-段间直接寻址" class="headerlink" title="5.5.3 段间直接寻址"></a>5.5.3 段间直接寻址</h4><p>利用操作符<code>far ptr </code>可以实现段间的转移，即同时修改CS和IP寄存器</p>
+<p>示例：</p>
+<p><code>jmp far ptr temp</code></p>
+<h4 id="5-5-4-段间间接寻址"><a href="#5-5-4-段间间接寻址" class="headerlink" title="5.5.4 段间间接寻址"></a>5.5.4 段间间接寻址</h4><p>即使用存储器中的两个相继字（连续的两个字单元）的内容来代替IP和CS寄存器的内容，以达到段间转移的目的</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ass">jmp dword ptr [si]<br>jmo dword ptr [addr]<br></code></pre></td></tr></table></figure>
+
+<h2 id="六-汇编中常见操作"><a href="#六-汇编中常见操作" class="headerlink" title="六. 汇编中常见操作"></a>六. 汇编中常见操作</h2><h3 id="6-1-输出多位数"><a href="#6-1-输出多位数" class="headerlink" title="6.1 输出多位数"></a>6.1 输出多位数</h3><p><em><strong>一般思路是利用除法，从而得到余数（每一个位数），然后将对应的余数转换成字符并输出。</strong></em></p>
+<blockquote>
+<p>除法DIV：</p>
+<p>一般格式：div reg或者div 内存单元，reg里面和内存单元中存放的是除数，除数可分为8位和16位两种</p>
+<p><em><strong>当除数为8位的时候：</strong></em></p>
+<ul>
+<li>被除数默认为16位，被除数默认存放在AX寄存器中</li>
+<li>AL存储除法操作结果的商，AH存储除法的余数</li>
+</ul>
+<p><em><strong>当除数为16位的时候：</strong></em></p>
+<ul>
+<li>被除数为32位，DX存放高16位，AX存放低16位</li>
+<li>AX存储操作结果的商，DX存储操作结果的余数</li>
+</ul>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs ass">;以下内容是定义的一个子程序，实现的功能是将多位数ax以十进制输出<br>decimal proc near <br>    push ax<br>	push cx <br>	push dx<br>	push bx <br>	<br>	cmp ax,0<br>	jge no_negative <br>	;如果整数为负数，先输出负号，然后求补转化成整数再输出相应的数字<br>	mov bx,ax <br>	mov dl,&#x27;-&#x27;<br>	mov ah,2 <br>	int 21h <br>	neg bx ;求补<br>	mov ax,bx <br>		<br>no_negative:<br>	mov cx,0<br>	mov bx,10 <br>de:<br>	xor dx,dx <br>	div bx <br>	push dx ;将整数的低位压栈，低位先入栈<br>	inc cx;计数器，记录整数的位数<br>	cmp ax,0 <br>	jnz de;非零跳转，如果这个整数还没有除尽，就继续除 <br>de1:<br>	pop dx;将余数一位一位的输出，从高位往低位<br>	add dl,30h;将数字转化为字符<br>	mov ah,2 ;输出<br>	int 21h<br>	loop de1 ;循环输出<br>	<br>	pop bx <br>	pop dx <br>	pop cx <br>	pop ax <br>	ret;将处理器回到该程序被调用的程序上，即相当于高级语言中的return<br>decimal endp<br></code></pre></td></tr></table></figure>
+
+<h2 id="七-关于栈的123"><a href="#七-关于栈的123" class="headerlink" title="七. 关于栈的123"></a>七. 关于栈的123</h2><p>栈和我们高级语言中的栈有所不一样，高级语言中，栈的作用主要是与函数的调用有关，涉及到参数进栈，函数地址进栈还有记录返回的内存地址进栈等等。</p>
+<p>但是在汇编中，由于我们是在微观中看世界，所以很多操作都需要利用栈来操作进行，比如说在汇编中我们的寄存器的数量是有限的，不可能像高级语言中随便定义变量，所以说当我们有大量的变量需要大量的使用的话，我们就会先将寄存器中值压栈进行存储，下次使用的时候再出栈将其取出。</p>
+<p>栈的实现离不开堆栈寄存器SS和栈顶寄存器SP，当栈为空的时候，栈顶指针指向<em><strong>栈最底部的字单元的偏移地址+2</strong></em>。</p>
+<p><em><strong>注意注意注意！！！！在栈中的操作（出栈和入栈）都是以字为单位的！！！</strong></em></p>
+<p><em><strong>栈顶超界</strong></em>的问题，栈顶超界是十分的危险的，比如说我们有可能在栈空间的外面存放了具有其他用途的数据、代码等等，然后由于我们没有事先考虑好栈的空间大小问题，导致栈顶超界，从而造成数据、代码的意外改写。</p>
+<p>所以说，我们在编程的时候需要自己操心栈顶会不会超界的问题，要根据可能要用到的最大栈空间，来安排栈的大小，防止入栈的数据过多导致栈顶超界，出栈的时候也要注意，防止将栈以外的数据出栈。</p>
+<h2 id="八-一段安全的空间"><a href="#八-一段安全的空间" class="headerlink" title="八. 一段安全的空间"></a>八. 一段安全的空间</h2><p>在9096模式下，随意的向内存空间写入内容是很危险的，因为这段空间中很可能存放着重要的系统数据或者代码。比如下列指令：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs ass">mov ax,1000h<br>mov ds,ax<br>mov dl,0<br>mov ds:[0],al<br></code></pre></td></tr></table></figure>
+
+<p>我们之前很多都是为了说明某一些指令的功能才这样去书写，但是实际上来说，我们想要写入的地址中很可能存放着很重要的系统数据或者代码，如果我们将其改写的话，会引发系统的错误。</p>
+<p>所以一般有以下规则：</p>
+<blockquote>
+<p>DOS方式下，一般情况，0：200~0：2ff空间中是没有系统或者其他程序的数据或者代码的；</p>
+<p>所以说我们需要直接向一段内存中写入内容的时候，就是用0：200~0:2ff这一段空间；</p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Assembly/" class="category-chain-item">Assembly</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Assembly</div>
+      <div>http://example.com/2022/10/09/Assembly/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>10-Kirito</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/09/TCP-IP%E5%8D%8F%E8%AE%AE/" title="TCP_IP协议">
+                        <span class="hidden-mobile">TCP_IP协议</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/10-Kirito" target="_blank" rel="nofollow noopener"><span>10-Kirito</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/10-Kirito" target="_blank" rel="nofollow noopener"><span>10-Kirito</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
