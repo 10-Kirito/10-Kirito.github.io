@@ -1,0 +1,740 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="10-Kirito">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Protocol Study一. HTTP Protocol网址（URL），我们最常见的网址就是http:&#x2F;&#x2F;开头的那一串东西，比如http:&#x2F;&#x2F;baidu.com等等。但是实际上网址有很多种，比如说ftp:&#x2F;&#x2F;user:password@ftp.glasscom.com:21&#x2F;dir&#x2F;file1.html、file:&#x2F;&#x2F;localhost&#x2F;c:&#x2F;path&#x2F;file.zip、m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Protocol_Study">
+<meta property="og:url" content="http://example.com/2022/10/09/Protocol-Study/index.html">
+<meta property="og:site_name" content="10-Kirito">
+<meta property="og:description" content="Protocol Study一. HTTP Protocol网址（URL），我们最常见的网址就是http:&#x2F;&#x2F;开头的那一串东西，比如http:&#x2F;&#x2F;baidu.com等等。但是实际上网址有很多种，比如说ftp:&#x2F;&#x2F;user:password@ftp.glasscom.com:21&#x2F;dir&#x2F;file1.html、file:&#x2F;&#x2F;localhost&#x2F;c:&#x2F;path&#x2F;file.zip、m">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/1.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/2.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/3.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/4.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/5.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/6.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/7.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/8.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Protocol-Study/9.png">
+<meta property="article:published_time" content="2022-10-09T13:57:40.000Z">
+<meta property="article:modified_time" content="2022-10-09T14:05:32.250Z">
+<meta property="article:author" content="10-Kirito">
+<meta property="article:tag" content="原创">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="http://example.com/2022/10/09/Protocol-Study/1.png">
+  
+  
+  
+  <title>Protocol_Study - 10-Kirito</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Hello,10-Kirito！</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Protocol_Study"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-10-09 21:57" pubdate>
+          2022年10月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          38 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Protocol_Study</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Protocol-Study"><a href="#Protocol-Study" class="headerlink" title="Protocol Study"></a>Protocol Study</h1><h2 id="一-HTTP-Protocol"><a href="#一-HTTP-Protocol" class="headerlink" title="一. HTTP Protocol"></a>一. HTTP Protocol</h2><p><em><strong>网址（URL）</strong></em>，我们最常见的网址就是http:&#x2F;&#x2F;开头的那一串东西，比如<a target="_blank" rel="noopener" href="http://baidu.com等等.但是实际上网址有很多种,比如说ftp//user:password@ftp.glasscom.com:21/dir/file1.html%E3%80%81file://localhost/c:/path/file.zip%E3%80%81mailto:tone@glass.com.com%E3%80%81news:comp.protocols.tcp-ip%E7%AD%89%E7%AD%89%EF%BC%8C%E8%BF%99%E4%BA%9B%E9%83%BD%E6%98%AF%E6%A0%B9%E6%8D%AE%E6%88%91%E4%BB%AC%E8%A6%81%E8%AE%BF%E9%97%AE%E7%9A%84%E7%9B%AE%E6%A0%87%E6%89%80%E5%86%B3%E5%AE%9A%E7%9A%84%EF%BC%8C%E4%B9%9F%E5%8F%AF%E4%BB%A5%E8%BF%99%E6%A0%B7%E8%AF%B4%EF%BC%8C%E6%98%AF%E7%94%B1***%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%85%B7%E4%BD%93%E5%8D%8F%E8%AE%AE%E6%89%80%E5%86%B3%E5%AE%9A%E7%9A%84%EF%BC%81">http://baidu.com等等。但是实际上网址有很多种，比如说ftp://user:password@ftp.glasscom.com:21/dir/file1.html、file://localhost/c:/path/file.zip、mailto:tone@glass.com.com、news:comp.protocols.tcp-ip等等，这些都是根据我们要访问的目标所决定的，也可以这样说，是由***服务器的具体协议所决定的！</a>***</p>
+<img src="/2022/10/09/Protocol-Study/1.png" srcset="/img/loading.gif" lazyload class="" title="图一">
+
+<p>Web服务器应该使用HTTP协议，FTP服务器应该使用FTP协议，类似等等还有很多的协议。本节以HTTP协议进行探究。</p>
+<h3 id="1-1-浏览器对URL进行解析"><a href="#1-1-浏览器对URL进行解析" class="headerlink" title="1.1 浏览器对URL进行解析"></a>1.1 浏览器对URL进行解析</h3><p>首先，当我们往浏览器中输入网址之后，浏览器第一个工作是对网址进行解析，进而生成<em><strong>发送给Web服务器的请求消息</strong></em>。</p>
+<p>比如说<a target="_blank" rel="noopener" href="http://www.lab.glasscom.com/dir1/file1.html%EF%BC%8C%E6%B5%8F%E8%A7%88%E5%99%A8%E8%A7%A3%E6%9E%90%E4%B9%8B%E5%90%8E%EF%BC%8C%E5%8F%AF%E4%BB%A5%E5%BE%97%E5%88%B0%E8%AE%BF%E9%97%AE%E6%95%B0%E6%8D%AE%E6%BA%90%E7%9A%84%E6%9C%BA%E5%88%B6%E6%98%AFHTTP%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%90%8D%E7%A7%B0%E6%98%AFwww.lab.glasscom.com%EF%BC%8C%E6%88%91%E4%BB%AC%E8%80%8C%E8%A6%81%E8%AE%BF%E9%97%AE%E7%9A%84%E6%96%87%E4%BB%B6%E7%9A%84%E8%B7%AF%E5%BE%84%E6%98%AF/dir1/file1.html%E3%80%82">http://www.lab.glasscom.com/dir1/file1.html，浏览器解析之后，可以得到访问数据源的机制是HTTP，服务器的名称是www.lab.glasscom.com，我们而要访问的文件的路径是/dir1/file1.html。</a></p>
+<h3 id="1-2-浏览器生成HTTP请求消息"><a href="#1-2-浏览器生成HTTP请求消息" class="headerlink" title="1.2 浏览器生成HTTP请求消息"></a>1.2 浏览器生成HTTP请求消息</h3><img src="/2022/10/09/Protocol-Study/2.png" srcset="/img/loading.gif" lazyload class="" title="图二">
+
+<p>HTTP请求消息主要包含两个部分：<em><strong>对什么</strong></em>、<em><strong>进行怎样的操作</strong></em>。其中对什么部分称为URI，进行怎样的操作称为方法。我们常见的方法有GET、POST等等。</p>
+<p>比如说我们最经常使用的GET方法，该方法执行的功能是获取URL指定的信息，如果URL指定的是文件，则返回文件的内容，如果是CGI程序（对Web服务器程序调用其他程序的规则所做的定义就是CGI，而按照CGI规范来工作的程序就是CGI程序）的话，就会返回该程序的输出数据。</p>
+<p>生成HTTP请求消息，最重要的是第一行，该行称为<em><strong>请求行</strong></em>。该行由<em><strong>方法</strong></em>以及<em><strong>URI</strong></em>还有<em><strong>协议的版本</strong></em>所组成，告诉服务器我们想要对哪一个对象做出什么事情，以及通行口令。</p>
+<p>第二行开始为消息头（Header）,消息头的功能是用来存放一些额外的信息，比如说日期、客户端所支持的数据类型、语言、压缩格式、最后更新时间等等。</p>
+<p>写完消息头之后，还需要添加一个完全没有内容的空行，最后再写上所要发送的数据，称为消息体。该部分是取决于方法的，如果是GET方法的话，就不需要消息体，因为我们只取数据。但是POST方法就不一样了，我们不仅要取数据，还要去向服务器端提交信息。</p>
+<p>消息体结束之后，整个HTTP请求消息也就结束了。</p>
+<img src="/2022/10/09/Protocol-Study/3.png" srcset="/img/loading.gif" lazyload class="" title="图三">
+
+<h3 id="1-3-发送请求消息之后会收到响应"><a href="#1-3-发送请求消息之后会收到响应" class="headerlink" title="1.3 发送请求消息之后会收到响应"></a>1.3 发送请求消息之后会收到响应</h3><p>Web服务器端的响应消息和请求消息的基本思路是相同的，只不过响应消息的第一行换成了<em><strong>协议的版本号</strong></em>以及<em><strong>状态行</strong></em>，状态行使用表示告知客户端请求的结果。</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1xx</td>
+<td>告知请求的处理进度以及情况</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>成功</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>表示需要进一步的操作</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端错误</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务器错误</td>
+</tr>
+</tbody></table>
+<p>接下来所写的是响应消息的头部，同样的消息头之后需要添加一个完全没有内容的空行，在之后就是响应信息所返回的数据，有可能是文本消息，也有可能是图片，也有可能是视频，也有可能是其他的数据。</p>
+<p><em><strong>有一点需要说明一下，网页的文字和图片和视频等不同类型的数据类型，返回的时候是分开的，并不是一次性全部返回的。</strong></em></p>
+<p>返回响应消息之后，浏览器会将数据提取到屏幕中，如果只有文字的话，就这样就结束了，但是如果网页中包含有其他的比如图片等资源，那么还有下文。</p>
+<p>当网页中包含有图片的时候，服务器再返回的消息中会嵌入表示图片的标签（比如<code>&lt;img src = &quot;image1.jpg&quot;/&gt;</code>返回的消息会详细的写明图片的位置），而浏览器在显示文字的时候，会搜索相应的标签，当遇到图片相关的标签的时候，会在屏幕中留出用来显示图片的空间，然后会再去生成HTTP请求消息，去向服务器请求相关的图片等资源，服务器也会返回响应消息（包含图片等资源的数据）。</p>
+<p>由于每一条消息中只能写一条URI（统一资源标识符），所以每一次只能获取1个文件，我们可以想象，当一个网页中含有丰富的图片和其他的资源的时候，客户端和服务器之间将会有多少次会话，这也是为什么我们访问一个网页的时候会有一大堆的消息生成（在网页端查看的时候，比如说谷歌按下F12）。</p>
+<h2 id="二-TCP-Protocol"><a href="#二-TCP-Protocol" class="headerlink" title="二. TCP Protocol"></a>二. TCP Protocol</h2><h3 id="2-1-三次握手"><a href="#2-1-三次握手" class="headerlink" title="2.1 三次握手"></a>2.1 三次握手</h3><p>TCP使用三次握手建立一个连接：</p>
+<p><em><strong>第一次握手</strong></em>：客户端发送SYN包到服务器，并进入SYN_SENT状态，等待服务器确定；</p>
+<p><em><strong>第二次握手</strong></em>：服务器收到客户端的SYN包，发送一个ACK，同时发送自己的SYN，此时服务器进入SYN——RCVD状态；</p>
+<p><em><strong>第三次握手</strong></em>：客户端收到服务器发送的SYN+ACK后，进入ESTABLISHED状态，并发送服务器SYN包的确认ACK，进入ESTABLISHED状态；</p>
+<p>当服务器和客户端都进入ESTABLISHED状态后，服务器和客户端就可以开始双向传递数据了。</p>
+<p>二者在传送报文的时候，报文里面会包含<em><strong>源端口号</strong></em>、<em><strong>目的端口号</strong></em>、<em><strong>SEQ序号和ACK确认号</strong></em>、<em><strong>控制标志位</strong></em>等等。</p>
+<img src="/2022/10/09/Protocol-Study/4.png" srcset="/img/loading.gif" lazyload class="" title="图四">
+
+<p><em>示例：</em></p>
+<img src="/2022/10/09/Protocol-Study/5.png" srcset="/img/loading.gif" lazyload class="" title="图五">
+
+<h3 id="2-2-四次挥手"><a href="#2-2-四次挥手" class="headerlink" title="2.2 四次挥手"></a>2.2 四次挥手</h3><p>TCP使用四次挥手关闭一个连接：</p>
+<p><em><strong>第一次挥手</strong></em>：主动关闭方发送一个FIN并进入<em><strong>FIN_WAIT1</strong></em>状态；</p>
+<p><em><strong>第二次挥手</strong></em>：被动关闭方接收到主动关闭方发送的FIN并发送ACK，此时被动发送方进入<em><strong>CLOSE_WAIT</strong></em>状态；主动关闭方收到被动关闭方的ACK之后，进入<em><strong>FIN_WAIT2</strong></em>状态；</p>
+<p><em><strong>第三次握手</strong></em>：被动关闭方发送一个FIN并进入<em><strong>LAST_ACK</strong></em>状态;</p>
+<p><em><strong>第四次握手</strong></em>：主动关闭方收到被动关闭方发送的FIN并发送ACK，此时主动关闭方进入<em><strong>TIME_WAIT</strong></em>状态，经过***2MSL(Maximum Segment Lifetime,报文最大生存时间)***后关闭连接，被动关闭方收到主动关闭方的ACK后，关闭连接。</p>
+<img src="/2022/10/09/Protocol-Study/6.png" srcset="/img/loading.gif" lazyload class="" title="图六">
+
+<p><em><strong>示例0：</strong></em></p>
+<img src="/2022/10/09/Protocol-Study/7.png" srcset="/img/loading.gif" lazyload class="" title="图七">
+
+<p><em><strong>示例1：</strong></em></p>
+<img src="/2022/10/09/Protocol-Study/8.png" srcset="/img/loading.gif" lazyload class="" title="图八">
+
+<p>该示例中只有两个数据包，至于原因，暂且未知，<em><strong>猜测是因为两边的数据全部都已经收发完毕了。</strong></em></p>
+<img src="/2022/10/09/Protocol-Study/9.png" srcset="/img/loading.gif" lazyload class="" title="图九">
+
+<h3 id="2-3-为什么握手需要三次？"><a href="#2-3-为什么握手需要三次？" class="headerlink" title="2.3 为什么握手需要三次？"></a>2.3 为什么握手需要三次？</h3><p>三次握手最关键的问题是，<em><strong>确保双方都已经做好收发数据的准备</strong></em>。客户端第一次握手（请求连接），然后服务端（第二次握手）回复SYN + ACK，回复包包含两个信息：一是告诉客户端已经准备就绪，可以进行连接；另一个就是确认收到请求，确保没有问题。如果说这样就可以建立连接的话，我们理想情况下是可以的，但是总归是有不理想的情况的，比如说客户端突然出现故障了，没有接收到SYN + ACK，服务器还认为客户端已经接收到，就开始传输数据，这样就会造成数据的丢失；或者说确认应答SYN + ACK在传输的路上丢失，Client没有收到，Client将不知道Server是否做好准备；像这样的问题有很多。但是一旦加上第三次握手的话，这下双方都可以确定，Client确认服务器已经可以建立连接，Server认为Client也做好了准备，这样稳定的连接才建立好。</p>
+<h3 id="2-4-为什么挥手需要四次？"><a href="#2-4-为什么挥手需要四次？" class="headerlink" title="2.4 为什么挥手需要四次？"></a>2.4 为什么挥手需要四次？</h3><p>关闭连接的时候，客户端发送FIN报文，表示其不再发送数据，但是可以接收数据。<em><strong>因为是主动请求结束连接，说明客户端肯定没有数据要发送。</strong></em></p>
+<p><em><strong>服务端收到FIN报文后，由于服务端可能仍然有数据需要处理和发送，所以只能先告诉客户端已经接收到请求断开连接，然后将所需要发送的数据发送完毕之后，再告诉客户端数据已经发送完毕，可以关闭连接，客户端收到之后再发送确定报文ACK，断开连接.</strong></em></p>
+<p>在建立连接中,Server端的应答可以稍微简单一点,当Server端接收到Client端的SYN连接请求报文的时候,回应的时候ACK报文表示对请求的应答,SYN报文表示服务端的连接已经同步开启,而ACK报文和SYN报文之间,不会有其他的报文需要发送,所以可以合二为一。最后客户端再发送一次ACK确认包，所以是三次连接。</p>
+<p>(<em><strong>延迟确认</strong></em>:接收方收到包之后,因为暂时没有内容回复给发送方,就会延迟一会再进行确认,假如说在延迟时间中刚好有数据要发送,那么就和确认数据包一起回复,这种规则称为<em><strong>数据捎带</strong></em>。延迟确认是为了减轻网络负担，未必可以提高网络性能，有些情况下反而会影响性能。)</p>
+<h3 id="2-5-为什么主动断开之后在TIME-WAIT状态必须等待2MSL的时间？"><a href="#2-5-为什么主动断开之后在TIME-WAIT状态必须等待2MSL的时间？" class="headerlink" title="2.5 为什么主动断开之后在TIME_WAIT状态必须等待2MSL的时间？"></a>2.5 为什么主动断开之后在TIME_WAIT状态必须等待2MSL的时间？</h3><blockquote>
+<p>原因之一：主动断开方等待2MSL的时间，是为了确保两端都能最终关闭。假设网络是不可靠的，被动断开方发送FIN+ACK报文后，其主动方的ACK响应报文有可能丢失，这时候的被动断开方处于LAST-ACK状态的，由于收不到ACK确认被动方一直不能正常的进入CLOSED状态。在这种场景下，被动断开方会超时重传FIN+ACK断开响应报文，如果主动断开方在2MSL时间内，收到这个重传的FIN+ACK报文，会重传一次ACK报文，后再一次重新启动2MSL计时等待，这样，就能确保被动断开方能收到ACK报文，从而能确保被动方顺利进入到CLOSED状态。只有这样，双方都能够确保关闭。反过来说，如果主动断开方在发送完ACK响应报文后，不是进入TIME_WAIT状态去等待2MSL时间，而是立即释放连接，则将无法收到被动方重传的FIN+ACK报文，所以不会再发送一次ACK确认报文，此时处于LAST-ACK状态的被动断开方，无法正常进入到CLOSED状态。</p>
+<p>原因之二：防止“旧连接的已失效的数据报文”出现在新连接中。主动断开方在发送完最后一个ACK报文后，再经过2MSL，才能最终关闭和释放端口，这就意味着，相同端口的新TCP新连接，需要在2MSL的时间之后，才能够正常的建立。2MSL这段时间内，旧连接所产生的所有数据报文，都已经从网络中消失了，从而，确保了下一个新的连接中不会出现这种旧连接请求报文。<br>————————————————<br>版权声明：本文为CSDN博主「架构师-尼恩」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/crazymakercircle/article/details/114527369">https://blog.csdn.net/crazymakercircle/article/details/114527369</a></p>
+</blockquote>
+<h3 id="2-6-如果已经建立了连接，但是Client端突然出现故障了怎么办？"><a href="#2-6-如果已经建立了连接，但是Client端突然出现故障了怎么办？" class="headerlink" title="2.6 如果已经建立了连接，但是Client端突然出现故障了怎么办？"></a>2.6 如果已经建立了连接，但是Client端突然出现故障了怎么办？</h3><blockquote>
+<p>TCP还设有一个保活计时器，Client端如果出现故障，Server端不能一直等下去，这样会浪费系统资源。每收到一次Client客户端的数据帧后，Server端都的保活计时器会复位。计时器的超时时间通常是设置为2小时，若2小时还没有收到Client端的任何数据帧，Server端就会发送一个探测报文段，以后每隔75秒钟发送一次。若一连发送10个探测报文仍然没反应，Server端就认为Client端出了故障，接着就关闭连接。如果觉得保活计时器的两个多小时的间隔太长，可以自行调整TCP连接的保活参数。<br>————————————————<br>版权声明：本文为CSDN博主「架构师-尼恩」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。<br>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/crazymakercircle/article/details/114527369">https://blog.csdn.net/crazymakercircle/article/details/114527369</a></p>
+</blockquote>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C%E5%8D%8F%E8%AE%AE/" class="category-chain-item">计算机网络协议</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Protocol_Study</div>
+      <div>http://example.com/2022/10/09/Protocol-Study/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>10-Kirito</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2022年10月9日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/09/TEST/" title="TEST">
+                        <span class="hidden-mobile">TEST</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://github.com/10-Kirito" target="_blank" rel="nofollow noopener"><span>10-Kirito</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/10-Kirito" target="_blank" rel="nofollow noopener"><span>10-Kirito</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
