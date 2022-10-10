@@ -25,8 +25,11 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/2022/10/09/Assembly/1.png">
 <meta property="og:image" content="http://example.com/2022/10/09/Assembly/2.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Assembly/3.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Assembly/4.png">
+<meta property="og:image" content="http://example.com/2022/10/09/Assembly/5.png">
 <meta property="article:published_time" content="2022-10-09T14:17:41.000Z">
-<meta property="article:modified_time" content="2022-10-09T14:20:49.994Z">
+<meta property="article:modified_time" content="2022-10-10T11:41:31.173Z">
 <meta property="article:author" content="10-Kirito">
 <meta property="article:tag" content="原创">
 <meta name="twitter:card" content="summary_large_image">
@@ -222,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          7.5k 字
+          11k 字
         
       </span>
     
@@ -233,7 +236,7 @@
         
         
         
-          63 分钟
+          92 分钟
         
       </span>
     
@@ -481,6 +484,55 @@
 <p>DOS方式下，一般情况，0：200~0：2ff空间中是没有系统或者其他程序的数据或者代码的；</p>
 <p>所以说我们需要直接向一段内存中写入内容的时候，就是用0：200~0:2ff这一段空间；</p>
 </blockquote>
+<h2 id="九-包含多个段的程序"><a href="#九-包含多个段的程序" class="headerlink" title="九. 包含多个段的程序"></a>九. 包含多个段的程序</h2><p>通过上面所述，0：200~0：2ff空间是相对安全的，但是也不是说我们除了这一段空间，其他的内存空间我们不能使用，这样显然是不可能的！</p>
+<p>在操作系统中，我们合法的通过操作系统取得的空间都是安全的，这是肯定的，我们向操作系统申请空间，操作系统是不会让一个程序所使用的空间和系他的程序相冲突的，在操作系统的允许下，我们是可以取得任意容量的空间的。</p>
+<p><em><strong>通常来说，程序取得所需空间的方法有两种：一种是在加载程序的时候，为程序分配（就是在一开始就将所有的变量申请空间）；二就是程序在执行的过程中向系统申请。</strong></em></p>
+<p>为了程序设计的清晰与方便，我们最好将代码、变量数据、堆栈有关分开存放，形成相应的段。否则不这样做的话，我们的程序就会显得十分的混乱。</p>
+<h3 id="程序1："><a href="#程序1：" class="headerlink" title="程序1："></a><em><strong>程序1：</strong></em></h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs ass">assume cs :code<br>code segment<br>    dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h<br>    mov bx,0<br>    mov ax,0<br>    mov cx,8<br><br>s:add ax,cs:[bx]<br>    add bx,2<br>    loop s<br>    mov ax,4c00h<br>    int 21h<br>code ends<br><br>end<br></code></pre></td></tr></table></figure>
+
+<p>我们可以使用<code>r</code>命令查看当前寄存器内容，使用<code>u</code>命令可以查看程序：</p>
+<img src="/2022/10/09/Assembly/3.png" srcset="/img/loading.gif" lazyload class="" title="图三">
+
+<p>使用<code>d</code>命令可以查看程序的前16个字节的内容：</p>
+<img src="/2022/10/09/Assembly/4.png" srcset="/img/loading.gif" lazyload class="" title="图四">
+
+<p>可以看到程序的前16个字节存放着我们定义的数据；</p>
+<p>我们使用指令<code>u 076c:10</code>可以查看程序中要执行的机器指令：</p>
+<img src="/2022/10/09/Assembly/5.png" srcset="/img/loading.gif" lazyload class="" title="图五">
+
+<h3 id="程序2："><a href="#程序2：" class="headerlink" title="程序2："></a>程序2：</h3><p><em><strong>在代码段中使用栈，主要问题是首先要有一段可以当作栈的内存空间，我们可以在程序中通过定义数据来取得一段空间，然后将这一段栈空间当作栈空间来用。</strong></em></p>
+<p><em>示例：</em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs asss">assume cs:codesg<br><br>codesg segment<br>    dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h<br><br>    dw 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0<br><br>start:<br>    mov ax,cs<br>    mov ss,ax   ;段寄存器之间不能相互赋值<br>    mov sp,30h  ;通过计算，我们可以知道，我们申请的从00h到10h是存放数据的，10h到30h是存放数据0的，就是我们即将用作栈的空间<br>                ;以上代码段，将段寄存器指向代码段，将栈底指针指向30h<br>                ;cs:10~cs:2f的内存空间当作栈来用，初始状态下栈为空，所以ss:sp需要指向栈底，2e加2就是30，因为在栈中是以字为单位操作的<br>    mov bx,0<br>    mov cx,8<br>s: <br>    push cs:[bx]<br>    add bx,2<br>    loop s<br>    mov bx,0<br>    mov cx,0<br>s0:<br>    pop cs:[bx]<br>    add bx,2<br>    loop s0<br>    mov ax,4c00h<br>    int 21h<br><br>codesg ends<br>end start<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="将数据、代码、栈放入不同的段中："><a href="#将数据、代码、栈放入不同的段中：" class="headerlink" title="将数据、代码、栈放入不同的段中："></a>将数据、代码、栈放入不同的段中：</h3><p>如果将数据、栈、代码都放入到一个段中，就会引发两个问题：</p>
+<ul>
+<li>将他们放在一个段中使得程序显得混乱；</li>
+<li>前面的程序中处理的数据比较少，用到的栈空间也少，加上没有多长的代码，放到一个段中没有问题。但是如果数据、栈、和代码需要的空间超过64kb，就不可以放在同一个段中了；</li>
+</ul>
+<blockquote>
+<p><em><strong>一个段的容量不可以大于64KB，但是注意，这仅仅是我们在学习所用的8086模式的限制，并不是所有的处理器都是这样的！为什么呢？因为我们8086内部，能够一次性处理、传输、暂时存储的信息的最大长度是16位，所以说所存储的地址也是16位，最大也就是2^16，结果就是64KB.</strong></em></p>
+<p><em><strong>但是8086CPU有20位地址总线，可以传送20位地址，所以为了合理的利用资源，8086CPU采用一种在内部用两个16位地址合成的方法来形成一个20位的物理地址。</strong></em></p>
+<p><em><strong>就算是这样的话，我们偏移地址仍然只有16位，所以其寻址能力仍旧是64KB，所以一个段的长度最大为64KB。</strong></em></p>
+</blockquote>
+<p>将数据、代码、栈放入不同的段中，无非就是多定义几个<code>segment</code>然后将所要定义的内容存放在相应的段中即可。</p>
+<p><em><strong>示例：</strong></em></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs ass">assume cs:code,ds:data,ss:stack<br><br>data segment<br>    dw 0123h,0456h,0789h,0abch,0defh,0fedh,0cbah,0987h<br>data ends<br><br>stack segment<br>    dw 16 dup(0)<br>stack ends<br><br>code segment<br>start: <br>    mov ax,stack;会被编译器处理为表示一个段地址的数值<br>    mov ss,ax<br>    mov sp,20h;设置段寄存器的值，设置栈指针寄存器的值<br><br>    mov ax,data<br>    mov ds,ax<br>    <br>    mov bx,0;ds:bx指向data段的第一个单元<br>    mov cx,8;设置计数器的值<br>s: <br>    push [bx]<br>    add bx,2<br>    loop s<br><br>    mov bx,0<br>    mov cx,8<br>s0:<br>    pop [bx]<br>    add bx,2<br>    loop s0<br><br>    mov ax,4c00h<br>    int 21h<br>code ends<br>end start;指明程序的入口在start处<br></code></pre></td></tr></table></figure>
+
+<p><em><strong>注意注意！！！</strong></em></p>
+<p>CPU是一开始就知道了data、stack等各种代表着特殊含义的段了吗？</p>
+<p>当然不是！！</p>
+<p>源程序对于这三个段：<code>code segment</code> <code>stack segment</code> <code>data segment</code> 所作的处理：</p>
+<p>1）我们将各个段起一个名字，目的在于使得程序便于阅读，CPU并不知道他们的存在；</p>
+<p>2）在源程序中使用伪指令<code>assume cs:code,ds:data,ss:stack</code>将cs、ds、ss分别与code、data、stack段相连，这样做的目的仅仅是将具有一定用途的段和相关的寄存器相联系起来，CPU仍然不知道这些东西；</p>
+<p>3）<em><strong>我们在程序的最后，<code>end start</code>说明了程序的入口，这个入口将被写入可执行文件的描述信息，可执行文件中的程序被加载入内存中后，CPU中的CS:IP将设置指向这个程序入口，从而开始执行相关的指令，标号start在code段中，这样的话，CPU就会将code段中的内容当作指令来处理。</strong></em></p>
+<p><em><strong>在执行指令的过程中，我们设置了段寄存器的内容，设置了栈寄存器的内容，设置了数据段寄存起的内容，这个时候，CPU才认得我们的各个段。具体CPU如何处理我们定义的段的内容，是被当做指令执行，还是当作数据访问，还是当作栈的空间，取决于具体的汇编指令。</strong></em></p>
+<p><em>我们完全可以将数据段中的内容当作栈来使用，完全可以将栈中的内容当作数据来使用，取决于汇编指令。</em></p>
+<h3 id="检测小程序1："><a href="#检测小程序1：" class="headerlink" title="检测小程序1："></a>检测小程序1：</h3><p>将a段和b段中的数据分别相加，然后存储在c段中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs ass">assume cs:code<br><br>a segment<br>    db 1,2,3,4,5,6,7,8<br>a ends<br><br>b segment<br>    db 1,2,3,4,5,6,7,8<br>b ends<br><br>c segment<br>    db 0,0,0,0,0,0,0,0<br>c ends<br><br>code segment<br>start:<br>    mov ax,a<br>    mov ds,ax<br>    mov ax,c<br>    mov es,ax;附加数据段寄存器<br>    mov bx,0;基址寄存器，可以用作存储器指针来使用，必须使用bx寄存器当作存储器指针来使用，使用别的寄存器会报错，使用寄存器间接寻址的时候，只可以使用					;bx,bp,si,di这几个寄存器，使用变址（SI，DI）或者基址（BX,BP）<br>    mov cx,8<br>s1:<br>    mov al,[bx]<br>    mov es:[bx],al<br>    inc bx<br>    loop s1<br>    mov ax,b<br>    mov ds,ax<br>    mov bx,0<br>    mov cx,8<br>s2:<br>    mov al,[bx]<br>    add es:[bx],al<br>    inc bx<br>    loop s2<br><br>    mov ax,4c00h<br>    int 21h<br>    <br>code ends<br>end start<br></code></pre></td></tr></table></figure>
+
+<h3 id="检测程序2："><a href="#检测程序2：" class="headerlink" title="检测程序2："></a>检测程序2：</h3><p>将a段的前8个字型数据存放到b段中：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs ass">assume cs:code<br><br>a segment<br>    dw 1,2,3,4,5,6,7,8,9,0ah,0bh,0ch,0dh,0eh,0fh,0ffh<br>a ends<br><br>b segment<br>    dw 8 dup(0)<br>b ends<br><br>code segment<br>start:<br>    mov ax,a<br>    mov ds,ax<br>    mov bx,0<br>    mov ax,b<br>    mov es,ax<br>s:  <br>    push ds:[bx]<br>    pop es:[bx]<br>    add bx,2<br>    cmp bx,7<br>    je s<br>    mov ax,4c00h<br>    int 21h<br><br>code ends<br>end start<br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -545,7 +597,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2022年10月9日</div>
+          <div>2022年10月10日</div>
         </div>
       
       
