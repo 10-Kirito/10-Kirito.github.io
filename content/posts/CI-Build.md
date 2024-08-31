@@ -1,7 +1,7 @@
 +++
 title = 'CI 构建学习'
 date = 2024-08-31T16:00:27+08:00
-draft = true
+draft = false
 +++
 
 # 1. CI构建是什么？
