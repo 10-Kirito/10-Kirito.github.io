@@ -1,0 +1,13 @@
+{
+    "baseURL": "https://example.org/",
+    "languageCode": "en-us",
+    "title": "Never Stop Study!!!",
+    "theme": "hugo-xmin-zpf",
+    "params": {
+      "contact": {
+         "email": "info@example.org",
+         "phone": "+1 202-555-1212"
+      },
+      "subtitle": "The Best Widgets on Earth"
+    }
+}
