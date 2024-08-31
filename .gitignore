@@ -16,4 +16,7 @@ hugo.linux
 # Temporary lock file while building
 /.hugo_build.lock
 
+# Vscode temporary files
+.vscode/
+
 # End of https://www.toptal.com/developers/gitignore/api/hugo
