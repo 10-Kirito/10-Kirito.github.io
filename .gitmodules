@@ -1,0 +1,3 @@
+[submodule "themes/hugo-xmin-zpf"]
+	path = themes/hugo-xmin-zpf
+	url = https://github.com/10-Kirito/hugo-xmin

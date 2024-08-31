@@ -1,0 +1,4 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Never Stop Study!!!'
+theme = 'hugo-xmin-zpf'
