@@ -4,10 +4,36 @@
     "title": "Never Stop Study!!!",
     "theme": "hugo-xmin-zpf",
     "params": {
-      "contact": {
-         "email": "info@example.org",
-         "phone": "+1 202-555-1212"
+      "PersonInfo": {
+         "email": "10.z.p.f.kirito@gmail.com"
       },
-      "subtitle": "The Best Widgets on Earth"
+      "footer": "&copy; [10-Kirito](https://github.com/10-Kirito) 2024 -- {Year} | [Github](https://github.com/10-Kirito)"
+    },
+    "permalinks": {
+        "posts": "/:year/:month/:day/:slug/"
+    },
+    "menu": {
+        "main": [
+            {
+                "name": "Home",
+                "url": "",
+                "weight": 1
+            },
+            {
+                "name": "Categories",
+                "url": "categories/",
+                "weight": 2
+            },
+            {
+                "name": "Tags",
+                "url": "tags/",
+                "weight": 3
+            },
+            {
+                "name": "About",
+                "url": "about/",
+                "weight": 4
+            }
+        ]
     }
 }
