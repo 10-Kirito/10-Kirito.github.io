@@ -82,6 +82,8 @@ If, for a given event, several transitions are enabled, they are said to be in c
 
 # 3. 状态机具体实现
 
+> 本文章这里演示的状态机使用Delphi来进行实现，类似于C++！
+
 ## 3.1 状态机特点与简单使用
 
 > 代码仓库地址: https://github.com/10-Kirito/StateMachineDSL/tree/main
@@ -173,33 +175,259 @@ function FireEvent(ASource: S; AEvent: E): S;
 
 ## 3.2 状态的实现
 
+这里的状态的实现对于使用状态机的人来讲是看不到具体状态类的，其使用的时候只需要使用枚举定义相应的状态，最后将枚举类型当作泛型的参数传入进来即可。而状态机内部的实现为了方便拓展，内部将状态封装为相应的泛型类。
 
+```pascal
+type
+	TState<S, E> = class
+  strict private
+    FStateId: S;
+    FEventTransition: TEventTransition<S, E>;
+  public
+    constructor Create(AStateId: S);
+    destructor Destroy; override;
 
+    /// <summary></summary>
+    /// <param name="AEvent"></param>
+    /// <param name="ATarget"></param>
+    /// <param name="ATransitionType"></param>
+    /// <returns></returns>
+    function AddTranstition(AEvent: E; ATarget: TState<S, E>;
+      ATransitionType: TTransitionType): TTransition<S, E>;
 
+    function GetEventTranstitions(AEvent: E): TObjectList<TTransition<S,E>>;
+    property StateId: S read FStateId;
+  end;
+```
 
-
+该状态类创建的时候会将枚举值传入构造函数作为该状态的唯一标识符！该状态类当中还存储有该状态下所有的状态转移关系，之后向外提供添加状态转移关系以及通过事件访问状态转移关系的函数！
 
 ## 3.3 事件的实现
 
-
-
-
-
-
+事件的实现即为使用状态机的人定义的事件枚举类型，内部并未对其进行二次封装，仅仅是简单的枚举类型！
 
 ## 3.4 状态转移的实现
 
+每一个状态类`TState<S, E>`其中的一个成员为`FEventTransition: TEventTransition<S, E>`。
 
+这里对状态转移进行了进一步的封装，其中基本的状态转移关系：
 
+```pascal
+type
+	TTransition<S, E> = class
+  strict private
+    FSource: TState<S, E>;
+    FTarget: TState<S, E>;
+    FEvent: E;
+    FCondition: TCondition;
+    FType: TTransitionType;
+    FAction: TAction;
+  private
+    /// <summary> 获取相应的状态转移条件</summary>
+    function GetCondition: TCondition;
+  public
+    constructor Create;
+    destructor Destroy; override;
 
+    /// <summary> 比较两个状态转移是否相同</summary>
+    /// <param name="ATransition">目标状态转移</param>
+    /// <returns></returns>
+    /// <remarks>唯一标识组: [Event, Source, Target]</remarks>
+    function Equal(const ATransition: TTransition<S, E>): Boolean;
 
+    /// <summary> 状态转移函数</summary>
+    function Transit: TState<S, E>;
 
+    /// <summary> 相关属性设置以及访问</summary>
+    property Source: TState<S, E> read FSource write FSource;
+    property Target: TState<S, E> read FTarget write FTarget;
+    property Event: E read FEvent write FEvent;
+    property Condition: TCondition read GetCondition write FCondition;
+    property TransType: TTransitionType read FType write FType;
+    property Action: TAction read FAction write FAction;
+  end;
+```
 
-# 4. 开发过程当中遇到的问题
+状态转移关系当中存储了状态转移关系当中所有必要的元素，其中可以进一步补充。其中重要的就是`FSource`, `FTarget`, `FEvent`, `FCondition`, `FType`(这里原本的设计是状态转移可以为<u>内部状态转移</u>或者<u>外部状态转移</u>), `FAction`.
 
+其中这里两个状态转移关系的比较只取决于**原状态**，**目标状态**以及**触发的事件**。
 
+```pascal
+function TTransition<S, E>.Equal(const ATransition: TTransition<S, E>): Boolean;
+begin
+  Result := (FEvent = ATransition.Event) and
+    (FSource.StateId = ATransition.Source.StateId) and
+    (FTarget.StateId = ATransition.Target.StateId);
+end;
+```
 
+这里取决于状态机的设计来决定。
 
+例如，有的状态机设计需要对于遇到的同一个事件根据不同`condition`触发不同的状态流转的业务场景：
 
-。。。未完待续。。。
+```pascal
+ if condition == "1", STATE1 --> STATE1
+ if condition == "2" , STATE1 --> STATE2
+ if condition == "3" , STATE1 --> STATE3
+```
+
+该种情况，对于状态转移关系的实现不再能是简单的几个值。而是需要考虑同一个事件对于一个源状态可能存在多个状态转移关系，这个时候你就得考虑哪些元可以唯一确定一个状态转移关系。
+
+对于基本的状态转移关系，这里还做了进一步的封装：
+
+```pascal
+type
+	TEventTransition<S, E> = class
+  strict private
+    FEventTransition: TObjectDictionary<E,TObjectList<TTransition<S,E>>>;
+
+    /// <summary> 同一个事件, 两个状态之间的状态转移只能存在一个, 不能存在多个</summary>
+    /// <param name="AList"> 一个事件对应的所有的状态转移</param>
+    /// <param name="ATransition"> 新的目标状态转移</param>
+    procedure Verify(AList: TObjectList<TTransition<S, E>>; ANewTransition: TTransition<S, E>);
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    /// <summary> 添加一个状态转移，一个事件可能对应多种状态转移</summary>
+    /// <param name="AEvent"> 事件</param>
+    /// <param name="ATransition"> 状态转移</param>
+    procedure Put(AEvent: E; ANewTransition: TTransition<S, E>);
+
+    /// <summary> 当事件触发的时候，返回该事件可以触发的所有的状态转移</summary>
+    function Get(AEvent: E): TObjectList<TTransition<S,E>>;
+  end;
+```
+
+这里提供了两个函数`Put`和`Get`。其中对于`Put`, 添加状态转移的时候，一个事件可能对应多个状态转移！对于`Get`函数，当事件触发的时候，返回该事件可以触发的所有的状态转移关系。
+
+## 3.5 状态机`Builder`实现
+
+状态机的相关配置，例如状态转移关系的添加这些职责由状态机`Builder`来负责：
+
+```pascal
+TStateMachineBuilder<S, E> = class
+  {$REGION '私有类型声明'}
+  strict private type
+    StateHeler<S1, E1> = class
+    public
+      /// <summary> 创建相应的状态，但是并不持有其生命周期</summary>
+      /// <remarks> 从StateMap当中获取响应的状态，如果存在则直接返回; 反之则创建相应的状态</remarks>
+      class function getState(var AMap: TObjectDictionary<S1, TState<S1, E1>>; AStateId: S1): TState<S1, E1>;
+    end;
+  {$ENDREGION}
+  strict private
+    {
+      StateMap仅仅是持有相关对象的引用，其生命周期交由状态机来进行管理！
+      为什么？因为Builder的存在时间周期是比较短的，而状态机是始终存在!
+    }
+    FStateMap: TObjectDictionary<S, TState<S, E>>;
+    FStateMachine: TStateMachine<S, E>;
+  public
+    constructor Create;
+    destructor Destroy; override;
+
+    /// <summary>外部状态转移接口</summary>
+    /// <param name="ASource"> 源状态</param>
+    /// <param name="ATarget"> 目标状态</param>
+    /// <param name="AEvent"> 触发的事件</param>
+    /// <param name="ACondition"> 状态转移的条件</param>
+    /// <param name="Action"> 目标状态对应的动作</param>
+    procedure ExternalTransition(ASource: S; ATarget: S; AEvent: E;
+      ACondition: TCondition; Action: TAction);
+
+    /// <summary> 获取构建的状态机</summary>
+    /// <remarks> 并不管理其生命周期，交由用户进行管理</remarks>
+    function Build: TStateMachine<S, E>;
+  end;
+```
+
+其中关于动态创建出来的`TState<S, E>`的声明周期交由具体创建出来的状态机来管理！
+
+## 3.5 状态机实现
+
+状态机持有一个简单的`<S, TState<S, E>>`映射关系，其中所有的状态转移关系全部存放在具体的状态类当中。状态机当中对外仅仅提供一个基本的触发事件的接口，其他对于使用者均不可见！
+
+```pascal
+type
+	/// <summary>
+  ///   状态机类
+  /// </summary>
+  TStateMachine<S, E> = class
+  strict private
+    FStateMap: TObjectDictionary<S, TState<S, E>>;
+
+    /// <summary> 获取当前给定<S, E>所对应的Transition</summary>
+    /// <param name="ASource"> 当前状态: SourceState</param>
+    /// <param name="AEvent"> 触发的事件: Event</param>
+    /// <returns> 状态转移: TTransition</returns>
+    /// <remarks> 其中在进行状态转移的时候，会进行相关条件的判断, 符合条件才可以进行状态转移</remarks>
+    function RouteTransition(ASource: S; AEvent: E): TTransition<S, E>;
+
+    /// <summary> 获取相应的状态</summary>
+    /// <remarks> 如果相应状态不存在，则抛出异常</remarks>
+    function GetState(AStateId: S): TState<S, E>;
+  public
+    constructor Create(var AStateMap: TObjectDictionary<S, TState<S, E>>);
+    destructor Destroy; override;
+
+    /// <summary> 状态机提供的触发事件的接口</summary>
+    /// <param name="AEvent"> 事件</param>
+    /// <returns> 返回触发事件导致转移的目标状态</returns>
+    function FireEvent(ASource: S; AEvent: E): S;
+  end;
+```
+
+其中关于事件的触发具体是由函数`FireEvent`以及`RouteTransition`来完成。
+
+```pascal
+function TStateMachine<S, E>.FireEvent(ASource: S; AEvent: E): S;
+var
+  LTransition: TTransition<S, E>;
+begin
+  LTransition := RouteTransition(ASource, AEvent);
+
+  /// 如果不存在相应的状态转移，则维持当前状态
+  if not Assigned(LTransition) then
+  begin
+    CodeSite.Send('该事件并未存在相关的状态转移！');
+    Exit(ASource);
+  end;
+
+  Result := LTransition.Transit.StateId;
+end;
+
+function TStateMachine<S, E>.RouteTransition(ASource: S; AEvent: E): TTransition<S, E>;
+var
+  LState: TState<S, E>;
+  LTransitionList: TObjectList<TTransition<S, E>>;
+  LTransition: TTransition<S, E>;
+begin
+  Result := nil;
+  LState := GetState(ASource);
+  LTransitionList := LState.GetEventTranstitions(AEvent);
+
+  /// 如果该事件并没有对应的状态转移，则直接返回nil
+  if (not Assigned(LTransitionList)) or (LTransitionList.Count = 0) then
+    Exit(nil);
+
+  /// - 如果相应的状态转移提前设置Condition, 则检查相关的Condition是否满足状态转移;
+  /// - 如果相应的状态转移没有设置Condition, 则直接返回最后一个状态转移(一般情况下
+  ///   用户没有设置相应的状态转移条件，一个事件对于一个状态，只能有一个结果状态)
+  for LTransition in LTransitionList do
+  begin
+    if not Assigned(LTransition.Condition) then
+       Result := LTransition
+    else if LTransition.Condition() then
+    begin
+      Result := LTransition;
+      Exit;
+    end;
+  end;
+end;
+```
+
+# 4. 结尾
+
+以上便是一个简单的无状态的状态机具体概念以及实现， 感谢您有如此的耐心来阅读！另外本文章当中实现语言为Delphi，后续会在仓库当中更新其他类型的语言！
 
