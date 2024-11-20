@@ -5,7 +5,7 @@ tag = ['CodeReview']
 categories = ['CodeReview']
 keywords = ['CodeReview', 'ChatServer']
 summary = '[CodeReview-ClusterChatServer](https://github.com/10-Kirito/ClusterChatServer) - 本次CodeReview的主题是ClusterChatServer，主要是对ClusterChatServer的代码进行Review，查看代码的质量，是否符合规范，是否有潜在的问题。该项目是本人第一个完整的C++项目，当初编写的时候经验不是很多，所以一定存在一定的问题。但是一直没有对这一坨屎山进行CodeReview，希望本次CodeReview可以给你一些帮助！'
-draft = true
+draft = false
 +++
 
 > [ClusterChatServer](https://github.com/10-Kirito/ClusterChatServer)为本人大四简历上面的一个项目，实现的是一个简单的集群聊天服务器，其中支持一对一以及多对多的聊天功能！如果你对该项目感兴趣的话，可以在GitHub上进行查看。
